@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ListView, { ContextHelper } from '@comba.se/ui/ListView';
-import { IconButton } from '@comba.se/ui';
+import { EmptyState, IconButton } from '@comba.se/ui';
 import { ArchiveIcon, FilterIcon, InboxIcon } from '@comba.se/ui/Icons';
 
 // Utils //
@@ -10,7 +10,6 @@ import LayoutUtil from './LayoutUtil';
 import useChats from 'hooks/useChats';
 
 // Components //
-import EmptyState from 'shared/EmptyState';
 import ListHeader from 'shared/ListHeader';
 import ThreadItem from './ThreadItem';
 
