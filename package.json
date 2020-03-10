@@ -1,0 +1,56 @@
+{
+  "name": "@comba.se/chat",
+  "version": "0.0.01",
+  "private": false,
+  "description": "Chat Components for Combase • Powered By Stream",
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.8.0",
+    "@babel/preset-react": "^7.8.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "husky": "^3.1.0",
+    "prettier": "^1.19.1",
+    "react-is": "^16.12.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-spring": "^8.0.27",
+    "stream-chat": "^1.3.3",
+    "styled-components": "^5.0.1"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "yarn lint && babel src --out-dir dist",
+    "start": "node dist/index.js",
+    "dev": "npx babel-node src/index.js",
+    "lint": "yarn prettier --write --check --config ./.prettierrc \"**/*.js\" && eslint --fix ./src",
+    "test": "npx babel-node examples/index.js",
+    "prepublishOnly": "if [[ ! $PWD =~ dist$ ]]; then npm run _dist:nopublish; fi",
+    "_dist:nopublish": "echo 'Use `npm run dist` instead of `npm publish`!' && exit 1",
+    "_dist:prep": "yarn build && cp package.json dist && cp README.md dist",
+    "_dist:post": "rm -f dist/package.json && rm -f dist/README.md",
+    "dist": "npm run _dist:prep && npm publish dist && npm run _dist:post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GetStream/combase-chat.git"
+  },
+  "author": "Luke Smetham <luke@getstream.io>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/GetStream/combase-chat/issues"
+  },
+  "homepage": "https://github.com/GetStream/combase-chat#readme",
+  "dependencies": {
+    "react-content-loader": "^5.0.2"
+  }
+}
