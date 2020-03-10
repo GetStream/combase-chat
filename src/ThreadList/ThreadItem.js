@@ -6,7 +6,7 @@ import ContentLoader from 'react-content-loader';
 import { Avatar, Badge, Chip, Fill, Text } from '@comba.se/ui';
 
 // Styles //
-import listItemInteractions from 'styles/css/listItemInteractions';
+import listItemInteractions from '@comba.se/ui/styles/css/listItemInteractions';
 
 //  Hooks //
 import { useChannelListener } from 'stream-chat-hooks';
