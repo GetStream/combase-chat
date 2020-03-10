@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import ListView, { ContextHelper} from '@comba.se/ui/ListView';
 import { IconButton } from '@comba.se/ui';
 import { ArchiveIcon, FilterIcon, InboxIcon } from '@comba.se/ui/Icons';
 
@@ -12,7 +12,6 @@ import useChats from 'hooks/useChats';
 // Components //
 import EmptyState from 'shared/EmptyState';
 import ListHeader from 'shared/ListHeader';
-import ListView, { ContextHelper } from 'components/ListView';
 import ThreadItem from './ThreadItem';
 
 const initialState = { height: 0, width: 0 };

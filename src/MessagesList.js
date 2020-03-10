@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Animated from 'animated/lib/targets/react-dom';
+import ListView from '@comba.se/ui/ListView';
 
 import LayoutUtil from './LayoutUtil';
 
 // Components //
-import ListView from 'components/ListView';
 import Message from './Message';
 
 class MessagesList extends Component {
