@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ListView, { ContextHelper} from '@comba.se/ui/ListView';
+import ListView, { ContextHelper } from '@comba.se/ui/ListView';
 import { IconButton } from '@comba.se/ui';
 import { ArchiveIcon, FilterIcon, InboxIcon } from '@comba.se/ui/Icons';
 
