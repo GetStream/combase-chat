@@ -22,14 +22,14 @@
     "react-is": "^16.13.0"
   },
   "peerDependencies": {
-    "@comba.se/ui": "^0.0.57",
+    "@comba.se/ui": "^0.0.60",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27",
     "recyclerlistview": "^3.0.0",
-    "stream-chat": "^1.3.4",
+    "stream-chat": "^1.4.0",
     "stream-chat-hooks": "^0.0.9",
     "styled-components": "^5.0.1"
   },
