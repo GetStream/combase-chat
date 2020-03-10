@@ -2,12 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { Avatar, IconButton, Text } from '@comba.se/ui';
+import { ActionsGroup, Avatar, IconButton, Text } from '@comba.se/ui';
 import { ArrowBackIcon } from '@comba.se/ui/Icons';
 
 // Components //
-import ActionsGroup from 'shared/ActionsGroup';
-
 const Root = styled.div`
     flex: 0 0 64px;
     padding: 0px 16px;
