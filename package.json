@@ -1,6 +1,6 @@
 {
   "name": "@comba.se/chat",
-  "version": "0.0.06",
+  "version": "0.0.07",
   "private": false,
   "description": "Chat Components for Combase • Powered By Stream",
   "devDependencies": {
@@ -22,7 +22,7 @@
     "react-is": "^16.13.0"
   },
   "peerDependencies": {
-    "@comba.se/ui": "^0.0.56",
+    "@comba.se/ui": "^0.0.57",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",

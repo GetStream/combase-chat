@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ListView, { ContextHelper } from '@comba.se/ui/ListView';
-import { EmptyState, IconButton } from '@comba.se/ui';
+import { EmptyState, IconButton, ListHeader } from '@comba.se/ui';
 import { ArchiveIcon, FilterIcon, InboxIcon } from '@comba.se/ui/Icons';
 
 // Utils //
 import LayoutUtil from './LayoutUtil';
 
-// Hooks//
-import useChats from 'hooks/useChats';
-
 // Components //
-import ListHeader from 'shared/ListHeader';
 import ThreadItem from './ThreadItem';
 
 const initialState = { height: 0, width: 0 };
@@ -39,8 +35,7 @@ const ListLoadingComponent = () => (
     </>
 );
 
-export default props => {
-    const [chats, { loading, error }] = useChats();
+export default ({ chats, error, loading }) => {
     const [{ width }, onResize] = useState(initialState);
     const [layoutProvider, setLayoutProvider] = useState(
         LayoutUtil.getLayoutProvider(width, 80)
