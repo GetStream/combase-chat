@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { Container } from '@comba.se/ui';
-import {withLayout} from '@comba.se/ui/hocs';
+import { withLayout } from '@comba.se/ui/hocs';
 
 // Components //
 import Actions from './Actions';
