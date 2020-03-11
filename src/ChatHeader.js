@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
@@ -53,12 +53,16 @@ const Actions = styled(ActionsGroup)`
 const ChatHeader = ({ headerActions, partner }) => {
     const history = useHistory();
     const onBackClick = useCallback(() => {
-        history.goBack()
+        history.goBack();
     }, []);
     return (
         <Root>
             <Main>
-                <IconButton icon={ArrowBackIcon} color="text" onClick={onBackClick} />
+                <IconButton
+                    icon={ArrowBackIcon}
+                    color="text"
+                    onClick={onBackClick}
+                />
                 <UserWrapper>
                     <Avatar
                         src={partner.avatar}
@@ -73,10 +77,10 @@ const ChatHeader = ({ headerActions, partner }) => {
                             {partner.online
                                 ? 'Active Now'
                                 : partner.last_active
-                                    ? `Last active: ${moment(
-                                        partner.last_active
-                                    ).fromNow()}`
-                                    : 'Offline'}
+                                ? `Last active: ${moment(
+                                      partner.last_active
+                                  ).fromNow()}`
+                                : 'Offline'}
                         </Text>
                     </Content>
                 </UserWrapper>
@@ -84,6 +88,6 @@ const ChatHeader = ({ headerActions, partner }) => {
             <Actions>{headerActions}</Actions>
         </Root>
     );
-}
+};
 
 export default ChatHeader;
