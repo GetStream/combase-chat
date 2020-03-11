@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { ActionsGroup, Avatar, IconButton, Text } from '@comba.se/ui';
 import { ArrowBackIcon } from '@comba.se/ui/Icons';
@@ -50,36 +50,40 @@ const Actions = styled(ActionsGroup)`
     }
 `;
 
-const ChatHeader = ({ headerActions, partner }) => (
-    <Root>
-        <Main>
-            <BackLink to="/inbox">
-                <IconButton icon={ArrowBackIcon} color="text" />
-            </BackLink>
-            <UserWrapper>
-                <Avatar
-                    src={partner.avatar}
-                    name={partner.name}
-                    size={32}
-                    showStatus={partner.online}
-                    status={partner.online ? 'online' : 'offline'}
-                />
-                <Content>
-                    <Text weight="500">{partner.name}</Text>
-                    <Text size={12} faded>
-                        {partner.online
-                            ? 'Active Now'
-                            : partner.last_active
-                            ? `Last active: ${moment(
-                                  partner.last_active
-                              ).fromNow()}`
-                            : 'Offline'}
-                    </Text>
-                </Content>
-            </UserWrapper>
-        </Main>
-        <Actions>{headerActions}</Actions>
-    </Root>
-);
+const ChatHeader = ({ headerActions, partner }) => {
+    const history = useHistory();
+    const onBackClick = useCallback(() => {
+        history.goBack()
+    }, []);
+    return (
+        <Root>
+            <Main>
+                <IconButton icon={ArrowBackIcon} color="text" onClick={onBackClick} />
+                <UserWrapper>
+                    <Avatar
+                        src={partner.avatar}
+                        name={partner.name}
+                        size={32}
+                        showStatus={partner.online}
+                        status={partner.online ? 'online' : 'offline'}
+                    />
+                    <Content>
+                        <Text weight="500">{partner.name}</Text>
+                        <Text size={12} faded>
+                            {partner.online
+                                ? 'Active Now'
+                                : partner.last_active
+                                    ? `Last active: ${moment(
+                                        partner.last_active
+                                    ).fromNow()}`
+                                    : 'Offline'}
+                        </Text>
+                    </Content>
+                </UserWrapper>
+            </Main>
+            <Actions>{headerActions}</Actions>
+        </Root>
+    );
+}
 
 export default ChatHeader;
