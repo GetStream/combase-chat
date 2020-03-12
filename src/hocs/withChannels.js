@@ -1,11 +1,9 @@
 import React, { useMemo } from 'react';
 
 // Hooks //
-import useAuth from 'hooks/useAuth';
 import { useChannels, ChannelsContext } from 'stream-chat-hooks';
 
-export default WrappedComponent => props => {
-    const [{ organization, user }] = useAuth();
+export default WrappedComponent => ({ user, organization, ...props }) => {
     const filter = useMemo(
         () => ({
             organization: organization._id,
