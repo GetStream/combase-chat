@@ -16,7 +16,7 @@ const Root = styled.div`
 const AvatarWrapper = styled.div`
     justify-content: flex-end;
     align-items: flex-end;
-    width: 58px;
+    flex: 0 0 58px;
 `;
 
 const AvatarBubble = styled.div`
@@ -76,9 +76,7 @@ const Bubble = styled.div`
         }
 
     `
-            : `
-            margin-left: 14px;
-        `}
+            : null}
 `;
 
 const renderAttachments = (attachments, hasNext, hasPrev) =>
