@@ -8,7 +8,7 @@ const Root = styled.div`
     border-top-left-radius: ${({ isOwn, theme }) =>
         !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
     border-top-right-radius: ${({ isOwn, theme }) =>
-        !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
+        !isOwn ? theme.borderRadius * 2 : theme.borderRadius}px;
     border-bottom-left-radius: ${({ isOwn, theme }) =>
         !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
     border-bottom-right-radius: ${({ isOwn, theme }) =>
