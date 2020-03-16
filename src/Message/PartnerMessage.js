@@ -81,7 +81,7 @@ const Bubble = styled.div`
 
 const renderAttachments = (attachments, hasNext, hasPrev) =>
     attachments.map(attachment => (
-        <MessageAttachment {...{ hasNext, hasPrev }} {...attachment} />
+        <MessageAttachment {...{ hasNext, hasPrev }} {...attachment} isOwn={false} />
     ));
 
 const PartnerMessage = memo(

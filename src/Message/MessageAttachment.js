@@ -12,13 +12,14 @@ const Root = styled.div`
     border-bottom-right-radius: ${({ hasNext, theme }) => theme.borderRadius}px;
     max-width: 400px;
     overflow: hidden;
+    margin: ${({ isOwn }) => isOwn ? '0px 0px 0px 24px' : '0px 24px 0px 56px'};
     & > img {
         width: 100%;
     }
 `;
 
-const MessageAttachment = ({ asset_url, hasNext, hasPrev }) => (
-    <Root {...{ hasNext, hasPrev }}>
+const MessageAttachment = ({ asset_url, hasNext, hasPrev, isOwn }) => (
+    <Root {...{ hasNext, hasPrev, isOwn }}>
         <img src={asset_url} alt="attachment" />
     </Root>
 );
