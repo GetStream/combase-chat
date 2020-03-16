@@ -76,7 +76,9 @@ const Bubble = styled.div`
         }
 
     `
-            : null}
+            : `
+            margin-left: 14px;
+        `}
 `;
 
 const renderAttachments = (attachments, hasNext, hasPrev) =>
