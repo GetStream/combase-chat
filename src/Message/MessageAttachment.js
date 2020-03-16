@@ -7,11 +7,11 @@ const Root = styled.div`
     border: 1px solid ${({ theme }) => theme.color.border};
     border-top-left-radius: ${({ isOwn, theme }) =>
         !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
-    border-top-right-radius: ${({ hasPrev, isOwn, theme }) =>
-        hasPrev && !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
+    border-top-right-radius: ${({ isOwn, theme }) =>
+        !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
     border-bottom-left-radius: ${({ isOwn, theme }) =>
         !isOwn ? theme.borderRadius : theme.borderRadius * 2}px;
-    border-bottom-right-radius: ${({ isOwn, hasNext, theme }) =>
+    border-bottom-right-radius: ${({ isOwn, theme }) =>
         !isOwn ? theme.borderRadius * 2 : theme.borderRadius}px;
     max-width: 400px;
     overflow: hidden;
