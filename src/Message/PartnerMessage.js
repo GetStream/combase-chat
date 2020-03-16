@@ -85,7 +85,7 @@ const renderAttachments = (attachments, hasNext, hasPrev) =>
     ));
 
 const PartnerMessage = memo(
-    ({ currentMessage: { text, user }, hasNext, hasPrev }) => {
+    ({ currentMessage: { attachments, text, user }, hasNext, hasPrev }) => {
         const showAvatar = (hasPrev && !hasNext) || (!hasPrev && !hasNext);
         return (
             <Root>
