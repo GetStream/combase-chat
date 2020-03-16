@@ -6,6 +6,8 @@ import { Avatar, Text } from '@comba.se/ui';
 import asMessage from '../hocs/asMessage';
 
 // Components //
+import MessageAttachment from './MessageAttachment';
+
 const Root = styled.div`
     flex-direction: row;
     z-index: 0;
@@ -26,6 +28,10 @@ const AvatarBubble = styled.div`
     right: -4px;
     background-color: ${({ theme }) => theme.color.surface};
     z-index: 2;
+`;
+
+const BubbleWrap = styled.div`
+    align-items: flex-start;
 `;
 
 const Bubble = styled.div`
@@ -73,6 +79,11 @@ const Bubble = styled.div`
             : null}
 `;
 
+const renderAttachments = (attachments, hasNext, hasPrev) =>
+    attachments.map(attachment => (
+        <MessageAttachment {...{ hasNext, hasPrev }} {...attachment} />
+    ));
+
 const PartnerMessage = memo(
     ({ currentMessage: { text, user }, hasNext, hasPrev }) => {
         const showAvatar = (hasPrev && !hasNext) || (!hasPrev && !hasNext);
@@ -90,11 +101,16 @@ const PartnerMessage = memo(
                         </AvatarBubble>
                     </AvatarWrapper>
                 ) : null}
-                <Bubble {...{ hasNext, hasPrev, showAvatar }}>
-                    <Text line={24} color="white">
-                        {text}
-                    </Text>
-                </Bubble>
+                <BubbleWrap>
+                    {attachments.length
+                        ? renderAttachments(attachments, hasNext, hasPrev)
+                        : null}
+                    <Bubble {...{ hasNext, hasPrev, showAvatar }}>
+                        <Text line={24} color="white">
+                            {text}
+                        </Text>
+                    </Bubble>
+                </BubbleWrap>
             </Root>
         );
     }
