@@ -13,7 +13,7 @@ const Root = styled.div`
     max-width: 400px;
     overflow: hidden;
     margin: ${({ isOwn }) =>
-        isOwn ? '0px 0px 0px 24px' : '0px 24px 0px 56px'};
+        isOwn ? '0px 0px 0px 24px' : '0px 24px 0px 0px'};
     & > img {
         width: 100%;
     }

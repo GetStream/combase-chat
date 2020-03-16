@@ -16,6 +16,7 @@ const Root = styled.div`
 const AvatarWrapper = styled.div`
     justify-content: flex-end;
     align-items: flex-end;
+    width: 58px;
 `;
 
 const AvatarBubble = styled.div`
@@ -93,8 +94,8 @@ const PartnerMessage = memo(
         const showAvatar = (hasPrev && !hasNext) || (!hasPrev && !hasNext);
         return (
             <Root>
-                {showAvatar ? (
-                    <AvatarWrapper>
+                <AvatarWrapper>
+                    {showAvatar ? (
                         <AvatarBubble size={48}>
                             <Avatar
                                 showStatus={false}
@@ -103,8 +104,8 @@ const PartnerMessage = memo(
                                 size={48}
                             />
                         </AvatarBubble>
-                    </AvatarWrapper>
-                ) : null}
+                    ) : null}
+                </AvatarWrapper>
                 <BubbleWrap>
                     {attachments.length
                         ? renderAttachments(attachments, hasNext, hasPrev)
