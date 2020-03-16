@@ -50,7 +50,6 @@ const Bubble = styled.div`
             : theme.borderRadius * 2}px;
     border-bottom-right-radius: ${({ theme }) => theme.borderRadius * 2}px;
     margin-right: 24px;
-    margin-left: ${({ showAvatar }) => (showAvatar ? 0 : 56)}px;
     & > ${Text} {
         word-break: keep-all;
     }
