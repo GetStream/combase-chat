@@ -12,8 +12,7 @@ const Root = styled.div`
     border-bottom-right-radius: ${({ hasNext, theme }) => theme.borderRadius}px;
     max-width: 400px;
     overflow: hidden;
-    margin: ${({ isOwn }) =>
-        isOwn ? '0px 0px 0px 24px' : '0px 24px 0px 0px'};
+    margin: ${({ isOwn }) => (isOwn ? '0px 0px 0px 24px' : '0px 24px 0px 0px')};
     & > img {
         width: 100%;
     }
