@@ -13,12 +13,6 @@ const initialState = { height: 0, width: 0 };
 const style = { flex: 1 };
 
 const renderListEmpty = () => <EmptyState text="No Threads" />;
-const renderListHeader = props => (
-    <ListHeader {...props} icon={InboxIcon} title="Inbox">
-        <IconButton icon={ArchiveIcon} color="alt_text" />
-        <IconButton icon={FilterIcon} color="alt_text" />
-    </ListHeader>
-);
 
 const renderRow = ({ channel: { id, data, partner }, ...rest }, index) => (
     <ThreadItem {...{ id, data, partner }} />
@@ -35,7 +29,7 @@ const ListLoadingComponent = () => (
     </>
 );
 
-export default ({ chats, error, loading }) => {
+export default ({ chats, error, loading, leftButtonElement }) => {
     const [{ width }, onResize] = useState(initialState);
     const [layoutProvider, setLayoutProvider] = useState(
         LayoutUtil.getLayoutProvider(width, 80)
@@ -45,6 +39,13 @@ export default ({ chats, error, loading }) => {
     useEffect(() => {
         setLayoutProvider(LayoutUtil.getLayoutProvider(width, 80));
     }, [width]);
+
+    const renderListHeader = useCallback(props => (
+        <ListHeader {...props} leftButtonElement={leftButtonElement} icon={InboxIcon} title="Inbox">
+            <IconButton icon={ArchiveIcon} color="alt_text" />
+            <IconButton icon={FilterIcon} color="alt_text" />
+        </ListHeader>
+    ), []);
 
     if (error) {
         return <EmptyState text="Error loading threads" />;
