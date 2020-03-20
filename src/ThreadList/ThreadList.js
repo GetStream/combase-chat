@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ListView, { ContextHelper } from '@comba.se/ui/ListView';
 import { EmptyState, IconButton, ListHeader } from '@comba.se/ui';
 import { ArchiveIcon, FilterIcon, InboxIcon } from '@comba.se/ui/Icons';
@@ -40,12 +40,20 @@ export default ({ chats, error, loading, leftButtonElement }) => {
         setLayoutProvider(LayoutUtil.getLayoutProvider(width, 80));
     }, [width]);
 
-    const renderListHeader = useCallback(props => (
-        <ListHeader {...props} leftButtonElement={leftButtonElement} icon={InboxIcon} title="Inbox">
-            <IconButton icon={ArchiveIcon} color="alt_text" />
-            <IconButton icon={FilterIcon} color="alt_text" />
-        </ListHeader>
-    ), []);
+    const renderListHeader = useCallback(
+        props => (
+            <ListHeader
+                {...props}
+                leftButtonElement={leftButtonElement}
+                icon={InboxIcon}
+                title="Inbox"
+            >
+                <IconButton icon={ArchiveIcon} color="alt_text" />
+                <IconButton icon={FilterIcon} color="alt_text" />
+            </ListHeader>
+        ),
+        []
+    );
 
     if (error) {
         return <EmptyState text="Error loading threads" />;
