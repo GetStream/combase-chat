@@ -11,7 +11,7 @@ import PartnerMessage from './PartnerMessage';
 import SystemMessage from './SystemMessage';
 
 const Wrapper = styled.div`
-    margin-bottom: ${({ hasPrev }) => (!hasPrev ? 24 : 0)}px;
+    margin-bottom: ${({ hasPrev, isSmall }) => (!hasPrev ? isSmall ? 12 : 24 : 0)}px;
     width: ${({ width }) => `${width}px` || '100%'};
     transform: scaleY(-1);
 `;
@@ -119,7 +119,7 @@ class Message extends Component {
             : UserMessageComponent;
 
         return (
-            <Wrapper {...{ hasPrev, width }}>
+            <Wrapper {...{ hasPrev, isSmall, width }}>
                 {this.renderDay()}
                 <MessageComponent
                     {...{ isRead, isSmall, hasNext, hasPrev }}
