@@ -121,7 +121,10 @@ class Message extends Component {
         return (
             <Wrapper {...{ hasPrev, width }}>
                 {this.renderDay()}
-                <MessageComponent {...{ isRead, isSmall, hasNext, hasPrev }} {...rest} />
+                <MessageComponent
+                    {...{ isRead, isSmall, hasNext, hasPrev }}
+                    {...rest}
+                />
             </Wrapper>
         );
     }

@@ -46,8 +46,8 @@ const Bubble = styled.div`
         showAvatar
             ? 0
             : hasNext
-                ? theme.borderRadius
-                : theme.borderRadius * 2}px;
+            ? theme.borderRadius
+            : theme.borderRadius * 2}px;
     border-bottom-right-radius: ${({ theme }) => theme.borderRadius * 2}px;
     margin-right: 24px;
     & > ${Text} {
@@ -89,7 +89,12 @@ const renderAttachments = (attachments, hasNext, hasPrev) =>
     ));
 
 const PartnerMessage = memo(
-    ({ currentMessage: { attachments, text, user }, hasNext, isSmall, hasPrev }) => {
+    ({
+        currentMessage: { attachments, text, user },
+        hasNext,
+        isSmall,
+        hasPrev,
+    }) => {
         const showAvatar = (hasPrev && !hasNext) || (!hasPrev && !hasNext);
         return (
             <Root>

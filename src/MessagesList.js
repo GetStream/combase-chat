@@ -50,12 +50,13 @@ class MessagesList extends Component {
         }
     }
 
-    onResize = layout => this.setState({ layout }, () => {
-        const { onResize } = this.props;
-        if (onResize) {
-            onResize(layout);
-        }
-    });
+    onResize = layout =>
+        this.setState({ layout }, () => {
+            const { onResize } = this.props;
+            if (onResize) {
+                onResize(layout);
+            }
+        });
 
     renderRow = (currentMessage, index) => {
         const { isSmall } = this.props;

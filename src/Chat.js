@@ -92,13 +92,14 @@ class Chat extends Component {
         }
     };
 
-    handleResize = (layout) => this.setState(() => {
-        const { theme } = this.props;
-        return {
-            layout,
-            isSmall: layout.width < theme.breakpoints.sm,
-        }
-    });
+    handleResize = layout =>
+        this.setState(() => {
+            const { theme } = this.props;
+            return {
+                layout,
+                isSmall: layout.width < theme.breakpoints.sm,
+            };
+        });
 
     renderInputToolbar = () => {
         const { text } = this.state;
@@ -173,7 +174,7 @@ class Chat extends Component {
             partner,
             user,
         } = this.props;
-        const { inputToolbarHeight } = this.state;
+        const { inputToolbarHeight, isSmall } = this.state;
         return (
             <Root>
                 <ChatHeader {...{ headerActions, partner }} />
