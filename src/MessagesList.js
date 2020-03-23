@@ -11,8 +11,10 @@ import Message from './Message';
 class MessagesList extends Component {
     static propTypes = {
         data: PropTypes.array,
+        isSmall: PropTypes.bool,
         partner: PropTypes.object,
         onEndReached: PropTypes.func,
+        onResize: PropTypes.func,
         setMessageContainerRef: PropTypes.func,
         scrollAnim: PropTypes.instanceOf(Animated.Value),
         user: PropTypes.object,
@@ -48,9 +50,15 @@ class MessagesList extends Component {
         }
     }
 
-    onResize = layout => this.setState({ layout });
+    onResize = layout => this.setState({ layout }, () => {
+        const { onResize } = this.props;
+        if (onResize) {
+            onResize(layout);
+        }
+    });
 
     renderRow = (currentMessage, index) => {
+        const { isSmall } = this.props;
         const {
             layout: { width },
         } = this.state;
@@ -73,6 +81,7 @@ class MessagesList extends Component {
                 currentMessage.user && currentMessage.user.id === user._id;
             const messageProps = {
                 ...rest,
+                isSmall,
                 user,
                 partner,
                 key: currentMessage.id,

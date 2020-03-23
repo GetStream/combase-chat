@@ -92,6 +92,7 @@ class Message extends Component {
     render() {
         const {
             isRead,
+            isSmall,
             UserMessageComponent,
             PartnerMessageComponent,
             SystemMessageComponent,
@@ -120,7 +121,7 @@ class Message extends Component {
         return (
             <Wrapper {...{ hasPrev, width }}>
                 {this.renderDay()}
-                <MessageComponent {...{ isRead, hasNext, hasPrev }} {...rest} />
+                <MessageComponent {...{ isRead, isSmall, hasNext, hasPrev }} {...rest} />
             </Wrapper>
         );
     }

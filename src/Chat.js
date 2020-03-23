@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import uuid from 'uuid/v4';
 
 // Components //
@@ -32,13 +32,15 @@ class Chat extends Component {
 
     static defaultProps = {
         placeholder: 'Write something...',
-        onAttachment: () => {},
-        onSend: () => {},
+        onAttachment: () => { },
+        onSend: () => { },
     };
 
     state = {
+        layout: { width: 0, height: 0 },
         inputToolbarHeight: 0,
         isMounted: false,
+        isSmall: false,
         text: '',
         typingDisabled: false,
     };
@@ -89,6 +91,14 @@ class Chat extends Component {
             }, 100);
         }
     };
+
+    handleResize = (layout) => this.setState(() => {
+        const { theme } = this.props;
+        return {
+            layout,
+            isSmall: layout.width < theme.breakpoints.sm,
+        }
+    });
 
     renderInputToolbar = () => {
         const { text } = this.state;
@@ -172,10 +182,12 @@ class Chat extends Component {
                         {...{
                             extendedState,
                             inputToolbarHeight,
+                            isSmall,
                             user,
                             partner,
                             read,
                         }}
+                        onResize={this.handleResize}
                         onEndReached={onLoadMore}
                         data={this.messages}
                         setMessageContainerRef={this.setMessageContainerRef}
@@ -187,4 +199,4 @@ class Chat extends Component {
     }
 }
 
-export default Chat;
+export default withTheme(Chat);
