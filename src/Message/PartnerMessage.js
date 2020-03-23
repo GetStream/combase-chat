@@ -36,7 +36,7 @@ const BubbleWrap = styled.div`
 `;
 
 const Bubble = styled.div`
-    padding: ${({ isSmall }) => isSmall ? '16px 20px' : '20px'};
+    padding: ${({ isSmall }) => (isSmall ? '16px 20px' : '20px')};
     background-color: ${({ theme }) => theme.color.primary};
     border: 1px solid ${({ theme }) => theme.color.primary};
     border-top-left-radius: ${({ hasPrev, theme }) =>
@@ -46,8 +46,8 @@ const Bubble = styled.div`
         showAvatar
             ? 0
             : hasNext
-                ? theme.borderRadius
-                : theme.borderRadius * 2}px;
+            ? theme.borderRadius
+            : theme.borderRadius * 2}px;
     border-bottom-right-radius: ${({ theme }) => theme.borderRadius * 2}px;
     margin-right: 24px;
     & > ${Text} {
