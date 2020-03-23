@@ -32,12 +32,11 @@ class Chat extends Component {
 
     static defaultProps = {
         placeholder: 'Write something...',
-        onAttachment: () => {},
-        onSend: () => {},
+        onAttachment: () => { },
+        onSend: () => { },
     };
 
     state = {
-        layout: { width: 0, height: 0 },
         inputToolbarHeight: 0,
         isMounted: false,
         isSmall: false,
@@ -96,7 +95,6 @@ class Chat extends Component {
         this.setState(() => {
             const { theme } = this.props;
             return {
-                layout,
                 isSmall: layout.width < theme.breakpoints.sm,
             };
         });
