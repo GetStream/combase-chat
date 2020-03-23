@@ -67,9 +67,7 @@ class MessagesList extends Component {
             return null;
         }
         if (!currentMessage.user && !currentMessage.system) {
-            if (!currentMessage.system) {
-                console.warn('`user` is missing from message.');
-            }
+            console.warn('`user` is missing from message.');
             currentMessage.user = { id: 0 };
         }
 
