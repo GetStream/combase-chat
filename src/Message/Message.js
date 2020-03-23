@@ -52,7 +52,7 @@ class Message extends Component {
     shouldComponentUpdate(nextProps) {
         const next = nextProps.currentMessage;
         const current = this.props.currentMessage;
-        const { isRead, previousMessage, nextMessage, width } = this.props;
+        const { isRead, isSmall, previousMessage, nextMessage, width } = this.props;
         const nextPropsMessage = nextProps.nextMessage;
         const nextPropsPreviousMessage = nextProps.previousMessage;
 
@@ -63,6 +63,7 @@ class Message extends Component {
 
         return (
             (!isRead && nextProps.isRead) ||
+            isSmall !== nextProps.isSmall ||
             width !== nextProps.width ||
             next.sent !== current.sent ||
             next.received !== current.received ||

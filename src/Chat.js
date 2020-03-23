@@ -94,7 +94,6 @@ class Chat extends Component {
 
     handleResize = layout =>
         this.setState(() => {
-            console.log(layout);
             const { theme } = this.props;
             return {
                 layout,
