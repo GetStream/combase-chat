@@ -11,7 +11,8 @@ import PartnerMessage from './PartnerMessage';
 import SystemMessage from './SystemMessage';
 
 const Wrapper = styled.div`
-    margin-bottom: ${({ hasPrev, isSmall }) => (!hasPrev ? isSmall ? 12 : 24 : 0)}px;
+    margin-bottom: ${({ hasPrev, isSmall }) =>
+        !hasPrev ? (isSmall ? 12 : 24) : 0}px;
     width: ${({ width }) => `${width}px` || '100%'};
     transform: scaleY(-1);
 `;
