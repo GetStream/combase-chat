@@ -32,8 +32,8 @@ class Chat extends Component {
 
     static defaultProps = {
         placeholder: 'Write something...',
-        onAttachment: () => { },
-        onSend: () => { },
+        onAttachment: () => {},
+        onSend: () => {},
     };
 
     state = {
