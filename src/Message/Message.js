@@ -52,7 +52,13 @@ class Message extends Component {
     shouldComponentUpdate(nextProps) {
         const next = nextProps.currentMessage;
         const current = this.props.currentMessage;
-        const { isRead, isSmall, previousMessage, nextMessage, width } = this.props;
+        const {
+            isRead,
+            isSmall,
+            previousMessage,
+            nextMessage,
+            width,
+        } = this.props;
         const nextPropsMessage = nextProps.nextMessage;
         const nextPropsPreviousMessage = nextProps.previousMessage;
 
