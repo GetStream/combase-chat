@@ -27,6 +27,8 @@ const Main = styled.div`
 const UserWrapper = styled.div`
     margin-left: 8px;
     flex-direction: row;
+    align-items: center;
+    
     @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
         margin-left: 16px;
     }
@@ -77,10 +79,10 @@ const ChatHeader = ({ headerActions, partner }) => {
                             {partner.online
                                 ? 'Active Now'
                                 : partner.last_active
-                                ? `Last active: ${moment(
-                                      partner.last_active
-                                  ).fromNow()}`
-                                : 'Offline'}
+                                    ? `Last active: ${moment(
+                                        partner.last_active
+                                    ).fromNow()}`
+                                    : 'Offline'}
                         </Text>
                     </Content>
                 </UserWrapper>
