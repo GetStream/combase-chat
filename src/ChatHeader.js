@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import { ActionsGroup, Avatar, IconButton, Text } from '@comba.se/ui';
 import { ArrowBackIcon } from '@comba.se/ui/Icons';
@@ -38,12 +37,6 @@ const Content = styled.div`
     margin-left: 12px;
 `;
 
-const BackLink = styled(Link)`
-    @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
-        display: none;
-    }
-`;
-
 const Actions = styled(ActionsGroup)`
     display: none;
 
@@ -52,11 +45,7 @@ const Actions = styled(ActionsGroup)`
     }
 `;
 
-const ChatHeader = ({ headerActions, partner }) => {
-    const history = useHistory();
-    const onBackClick = useCallback(() => {
-        history.goBack();
-    }, []);
+const ChatHeader = ({ headerActions, onBackClick, partner }) => {
     return (
         <Root>
             <Main>
@@ -79,10 +68,10 @@ const ChatHeader = ({ headerActions, partner }) => {
                             {partner.online
                                 ? 'Active Now'
                                 : partner.last_active
-                                ? `Last active: ${moment(
-                                      partner.last_active
-                                  ).fromNow()}`
-                                : 'Offline'}
+                                    ? `Last active: ${moment(
+                                        partner.last_active
+                                    ).fromNow()}`
+                                    : 'Offline'}
                         </Text>
                     </Content>
                 </UserWrapper>

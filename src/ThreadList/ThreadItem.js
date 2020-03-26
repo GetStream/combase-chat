@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { withTheme } from 'styled-components';
-import { Route, Link } from 'react-router-dom';
 import moment from 'moment';
 import ContentLoader from 'react-content-loader';
 import { Avatar, Badge, Chip, Fill, Text } from '@comba.se/ui';
@@ -12,7 +11,7 @@ import listItemInteractions from '@comba.se/ui/styles/css/listItemInteractions';
 import { useChannelListener } from 'stream-chat-hooks';
 
 // Components //
-const Root = styled(Link)`
+const Root = styled.div`
     padding: 4px 8px;
     position: relative;
     display: flex;
@@ -48,9 +47,7 @@ const renderText = text => {
     return text;
 };
 
-const ThreadItemInner = props => {
-    const { data, id, match, partner, statusBorder, theme } = props;
-    const active = !!match;
+const ThreadItem = ({ active, data, id, partner, statusBorder, theme }) => {
     const [unread, latestMessage] = useChannelListener(id, active);
 
     if (!data || !id || !partner) {
@@ -113,14 +110,5 @@ const ThreadItemInner = props => {
         </Root>
     );
 };
-
-const renderItem = props => <ThreadItemInner {...props} />;
-
-const ThreadItem = props => (
-    <Route
-        path={`/inbox/${props.id}`}
-        children={routeProps => renderItem({ ...props, ...routeProps })}
-    />
-);
 
 export default withTheme(ThreadItem);
