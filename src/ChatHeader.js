@@ -46,37 +46,37 @@ const Actions = styled(ActionsGroup)`
 `;
 
 const ChatHeader = ({ headerActions, onBackClick, partner }) => (
-        <Root>
-            <Main>
-                <IconButton
-                    icon={ArrowBackIcon}
-                    color="text"
-                    onClick={onBackClick}
+    <Root>
+        <Main>
+            <IconButton
+                icon={ArrowBackIcon}
+                color="text"
+                onClick={onBackClick}
+            />
+            <UserWrapper>
+                <Avatar
+                    src={partner.avatar}
+                    name={partner.name}
+                    size={32}
+                    showStatus={partner.online}
+                    status={partner.online ? 'online' : 'offline'}
                 />
-                <UserWrapper>
-                    <Avatar
-                        src={partner.avatar}
-                        name={partner.name}
-                        size={32}
-                        showStatus={partner.online}
-                        status={partner.online ? 'online' : 'offline'}
-                    />
-                    <Content>
-                        <Text weight="500">{partner.name}</Text>
-                        <Text size={12} faded>
-                            {partner.online
-                                ? 'Active Now'
-                                : partner.last_active
-                                ? `Last active: ${moment(
-                                      partner.last_active
-                                  ).fromNow()}`
-                                : 'Offline'}
-                        </Text>
-                    </Content>
-                </UserWrapper>
-            </Main>
-            <Actions>{headerActions}</Actions>
-        </Root>
-    );
+                <Content>
+                    <Text weight="500">{partner.name}</Text>
+                    <Text size={12} faded>
+                        {partner.online
+                            ? 'Active Now'
+                            : partner.last_active
+                            ? `Last active: ${moment(
+                                  partner.last_active
+                              ).fromNow()}`
+                            : 'Offline'}
+                    </Text>
+                </Content>
+            </UserWrapper>
+        </Main>
+        <Actions>{headerActions}</Actions>
+    </Root>
+);
 
 export default ChatHeader;
