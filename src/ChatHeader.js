@@ -45,8 +45,7 @@ const Actions = styled(ActionsGroup)`
     }
 `;
 
-const ChatHeader = ({ headerActions, onBackClick, partner }) => {
-    return (
+const ChatHeader = ({ headerActions, onBackClick, partner }) => (
         <Root>
             <Main>
                 <IconButton
@@ -68,10 +67,10 @@ const ChatHeader = ({ headerActions, onBackClick, partner }) => {
                             {partner.online
                                 ? 'Active Now'
                                 : partner.last_active
-                                    ? `Last active: ${moment(
-                                        partner.last_active
-                                    ).fromNow()}`
-                                    : 'Offline'}
+                                ? `Last active: ${moment(
+                                      partner.last_active
+                                  ).fromNow()}`
+                                : 'Offline'}
                         </Text>
                     </Content>
                 </UserWrapper>
@@ -79,6 +78,5 @@ const ChatHeader = ({ headerActions, onBackClick, partner }) => {
             <Actions>{headerActions}</Actions>
         </Root>
     );
-};
 
 export default ChatHeader;
