@@ -14,7 +14,7 @@ const style = { flex: 1 };
 
 const renderListEmpty = () => <EmptyState text="No Threads" />;
 
-const renderRow = ({ channel: { id, data, partner }, ...rest }, index) => (
+const renderRow = ({ id, data, partner }, index) => (
     <ThreadItem {...{ id, data, partner }} />
 );
 
@@ -29,7 +29,7 @@ const ListLoadingComponent = () => (
     </>
 );
 
-export default ({ chats, error, loading, leftButtonElement }) => {
+export default ({ channels, error, loading, leftButtonElement }) => {
     const [{ width }, onResize] = useState(initialState);
     const [layoutProvider, setLayoutProvider] = useState(
         LayoutUtil.getLayoutProvider(width, 80)
@@ -70,7 +70,7 @@ export default ({ chats, error, loading, leftButtonElement }) => {
                 style,
             }}
             loading={loading && !chats.length}
-            data={chats}
+            data={channels}
             ListHeaderComponent={renderListHeader}
             ListEmptyComponent={renderListEmpty}
             rowCount={chats.length}
