@@ -69,11 +69,11 @@ export default ({ channels, error, loading, leftButtonElement }) => {
                 renderRow,
                 style,
             }}
-            loading={loading && !chats.length}
+            loading={loading && !channels.length}
             data={channels}
             ListHeaderComponent={renderListHeader}
             ListEmptyComponent={renderListEmpty}
-            rowCount={chats.length}
+            rowCount={channels.length}
             showEmptyHeader
         />
     );
