@@ -3363,10 +3363,10 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-stream-chat-hooks@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/stream-chat-hooks/-/stream-chat-hooks-0.0.11.tgz#8f923445fbb64a725c21ddd154e3134ec5ff227f"
-  integrity sha512-1lxKuZv1MiUJoznwY9pjc3iIkGMIcY/uwD9MV4MUlxEfLqKDyA+Di1n8uKFLXK2U4UgVE4kIwUwA2CXcg705Tw==
+stream-chat-hooks@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/stream-chat-hooks/-/stream-chat-hooks-0.0.12.tgz#2f172652dec9285e8722084d611a4e4697bfb091"
+  integrity sha512-AF69OieyMYLKFvmqR7Yuh3W9UNk7Y74AEGPmMWhD5rLmY2w/bLFPKHQ3Jhwjgp9wEWj6JJbtgB9zdyl0nuq/CA==
 
 string-width@^3.0.0:
   version "3.1.0"
