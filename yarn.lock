@@ -2960,7 +2960,7 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-"react-color@github:shreshthmohan/react-color":
+react-color@shreshthmohan/react-color:
   version "2.17.4"
   resolved "https://codeload.github.com/shreshthmohan/react-color/tar.gz/f9dbfe55eacbd230229223cc204ed144f9cd0448"
   dependencies:
@@ -3362,6 +3362,11 @@ static-extend@^0.1.1:
   dependencies:
     define-property "^0.2.5"
     object-copy "^0.1.0"
+
+stream-chat-hooks@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/stream-chat-hooks/-/stream-chat-hooks-0.0.10.tgz#300bc12599b375fc3508a027cc11c43634571969"
+  integrity sha512-H5RgNCoKH2lWDf7T83s5Htor/qMPxKWiC45yLruDVQ9kC+ja8jL/Q45xl3zbJNPJ/91VKhaZnAs/NlEr0BhPUg==
 
 string-width@^3.0.0:
   version "3.1.0"

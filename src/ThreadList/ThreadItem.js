@@ -87,7 +87,7 @@ const ThreadItem = ({ active, data, id, partner, statusBorder, theme }) => {
                             {moment(
                                 latestMessage
                                     ? latestMessage.created_at
-                                    : data.createdAt
+                                    : data.created_at
                             ).calendar()}
                         </Text>
                     </Row>
