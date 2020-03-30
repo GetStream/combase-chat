@@ -1,7 +1,11 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Container } from '@comba.se/ui';
-import { withLayout } from '@comba.se/ui/hocs';
+
+// Hooks //
+import useChat from 'hooks/useChats';
+import useLayout from 'hooks/useLayout';
 
 // Components //
 import Actions from './Actions';
@@ -22,14 +26,13 @@ const Root = styled(Container)`
 `;
 
 const InputToolbar = ({
-    channelId,
-    onSend: handleSend,
-    onTextChanged,
+    inputProps,
+    onResize,
     placeholder,
-    setRef,
-    text,
-    textInputProps,
 }) => {
+    const [layout, setRef] = useLayout(onResize);
+    const [{ channelId, handleSend, handleInputChange, inputRef, text }] = useChats();
+
     const [
         attachments,
         { uploadAttachment, deleteAttachment, clearAttachments },
@@ -47,14 +50,15 @@ const InputToolbar = ({
         <Root ref={setRef} maxWidth={840}>
             <Actions onAttachment={uploadAttachment} />
             <Composer
+                onTextChanged={handleInputChange}
+                text={text}
                 {...{
                     attachments,
                     deleteAttachment,
+                    inputRef,
                     onSend,
                     onTextChanged,
                     placeholder,
-                    text,
-                    textInputProps,
                 }}
             />
             <SendButton {...{ onSend, text }} />
@@ -62,4 +66,14 @@ const InputToolbar = ({
     );
 };
 
-export default withLayout(InputToolbar);
+InputToolbar.propTypes = {
+    inputProps: PropTypes.object,
+    onResize: PropTypes.func,
+    placeholder: PropTypes.string,
+};
+
+InputToolbar.defaultProps = {
+    placeholder: 'Type a message'
+};
+
+export default InputToolbar;

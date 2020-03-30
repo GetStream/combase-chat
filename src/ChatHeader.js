@@ -4,6 +4,9 @@ import moment from 'moment';
 import { ActionsGroup, Avatar, IconButton, Text } from '@comba.se/ui';
 import { ArrowBackIcon } from '@comba.se/ui/Icons';
 
+// Hooks //
+import useChat from './hooks/useChat';
+
 // Components //
 const Root = styled.div`
     flex: 0 0 64px;
@@ -45,38 +48,46 @@ const Actions = styled(ActionsGroup)`
     }
 `;
 
-const ChatHeader = ({ headerActions, onBackClick, partner }) => (
-    <Root>
-        <Main>
-            <IconButton
-                icon={ArrowBackIcon}
-                color="text"
-                onClick={onBackClick}
-            />
-            <UserWrapper>
-                <Avatar
-                    src={partner.avatar}
-                    name={partner.name}
-                    size={32}
-                    showStatus={partner.online}
-                    status={partner.online ? 'online' : 'offline'}
+const ChatHeader = ({ headerActions, onBackClick }) => {
+    const [{ partner }] = useChat();
+    return (
+        <Root>
+            <Main>
+                <IconButton
+                    icon={ArrowBackIcon}
+                    color="text"
+                    onClick={onBackClick}
                 />
-                <Content>
-                    <Text weight="500">{partner.name}</Text>
-                    <Text size={12} faded>
-                        {partner.online
-                            ? 'Active Now'
-                            : partner.last_active
-                            ? `Last active: ${moment(
-                                  partner.last_active
-                              ).fromNow()}`
-                            : 'Offline'}
-                    </Text>
-                </Content>
-            </UserWrapper>
-        </Main>
-        <Actions>{headerActions}</Actions>
-    </Root>
-);
+                <UserWrapper>
+                    <Avatar
+                        src={partner.avatar}
+                        name={partner.name}
+                        size={32}
+                        showStatus={partner.online}
+                        status={partner.online ? 'online' : 'offline'}
+                    />
+                    <Content>
+                        <Text weight="500">{partner.name}</Text>
+                        <Text size={12} faded>
+                            {partner.online
+                                ? 'Active Now'
+                                : partner.last_active
+                                    ? `Last active: ${moment(
+                                        partner.last_active
+                                    ).fromNow()}`
+                                    : 'Offline'}
+                        </Text>
+                    </Content>
+                </UserWrapper>
+            </Main>
+            <Actions>{headerActions}</Actions>
+        </Root>
+    );
+}
+
+ChatHeader.propTypes = {
+    headerActions: PropTypes.array,
+    onBackClick: PropTypes.func,
+};
 
 export default ChatHeader;

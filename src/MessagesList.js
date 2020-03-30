@@ -1,68 +1,148 @@
-import React, { Component } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Animated from 'animated/lib/targets/react-dom';
 import ListView from '@comba.se/ui/ListView';
 
-import LayoutUtil from './LayoutUtil';
+// Hooks //
+import useChat from './hooks/useChat';
+import useLayoutProvider from './hooks/useLayoutProvider';
 
 // Components //
 import Message from './Message';
 
-class MessagesList extends Component {
-    static propTypes = {
-        data: PropTypes.array,
-        isSmall: PropTypes.bool,
-        partner: PropTypes.object,
-        onEndReached: PropTypes.func,
-        onResize: PropTypes.func,
-        setMessageContainerRef: PropTypes.func,
-        scrollAnim: PropTypes.instanceOf(Animated.Value),
-        user: PropTypes.object,
-    };
+// class MessagesList extends Component {
+//     static propTypes = {
+//         data: PropTypes.array,
+//         isSmall: PropTypes.bool,
+//         partner: PropTypes.object,
+//         onEndReached: PropTypes.func,
+//         onResize: PropTypes.func,
+//         setMessageContainerRef: PropTypes.func,
+//         scrollAnim: PropTypes.instanceOf(Animated.Value),
+//         user: PropTypes.object,
+//     };
 
-    static defaultProps = {
-        scrollAnim: new Animated.Value(0),
-    };
+//     static defaultProps = {
+//         scrollAnim: new Animated.Value(0),
+//     };
 
-    state = {
-        layoutProvider: LayoutUtil.getLayoutProvider(
-            0,
-            this.props.data,
-            this.props.user
-        ),
-        layout: {},
-    };
+//     state = {
+//         layoutProvider: LayoutUtil.getLayoutProvider(
+//             0,
+//             this.props.data,
+//             this.props.user
+//         ),
+//         layout: {},
+//     };
 
-    componentDidUpdate(prevProps, prevState) {
-        const { layout } = this.state;
-        const { data, user } = this.props;
-        if (
-            layout.width !== prevState.layout.width ||
-            data.length !== prevProps.data.length
-        ) {
-            this.setState({
-                layoutProvider: LayoutUtil.getLayoutProvider(
-                    layout.width,
-                    data,
-                    user
-                ),
-            });
-        }
-    }
+//     componentDidUpdate(prevProps, prevState) {
+//         const { layout } = this.state;
+//         const { data, user } = this.props;
+//         if (
+//             layout.width !== prevState.layout.width ||
+//             data.length !== prevProps.data.length
+//         ) {
+//             this.setState({
+//                 layoutProvider: LayoutUtil.getLayoutProvider(
+//                     layout.width,
+//                     data,
+//                     user
+//                 ),
+//             });
+//         }
+//     }
 
-    onResize = layout =>
-        this.setState({ layout }, () => {
-            const { onResize } = this.props;
-            if (onResize) {
-                onResize(layout);
-            }
-        });
+//     onResize = layout =>
+//         this.setState({ layout }, () => {
+//             const { onResize } = this.props;
+//             if (onResize) {
+//                 onResize(layout);
+//             }
+//         });
 
-    renderRow = (currentMessage, index) => {
-        const { isSmall } = this.props;
-        const {
-            layout: { width },
-        } = this.state;
+//     renderRow = (currentMessage, index) => {
+//         const { isSmall } = this.props;
+//         const {
+//             layout: { width },
+//         } = this.state;
+//         if (!currentMessage) {
+//             return null;
+//         }
+//         if (!currentMessage.user && !currentMessage.system) {
+//             console.warn('`user` is missing from message.');
+//             currentMessage.user = { id: 0 };
+//         }
+
+//         const { data, user, partner, read, ...rest } = this.props;
+
+//         if (data && user) {
+//             const previousMessage = data[index + 1];
+//             const nextMessage = data[index - 1];
+//             const isOwn =
+//                 currentMessage.user && currentMessage.user.id === user._id;
+//             const messageProps = {
+//                 ...rest,
+//                 isSmall,
+//                 user,
+//                 partner,
+//                 key: currentMessage.id,
+//                 currentMessage,
+//                 previousMessage,
+//                 nextMessage,
+//                 isRead: read.last_read >= currentMessage.created_at,
+//                 position: isOwn ? 'right' : 'left',
+//             };
+//             return <Message {...{ width }} {...messageProps} />;
+//         }
+
+//         return null;
+//     };
+
+//     get style() {
+//         return {
+//             flex: 1,
+//             transform: 'scaleY(-1)',
+//         };
+//     }
+
+//     render() {
+//         const {
+//             data,
+//             extendedState = {},
+//             onEndReached,
+//             scrollAnim,
+//             setMessageContainerRef,
+//             read,
+//         } = this.props;
+//         const { layoutProvider } = this.state;
+//         const { onResize, renderRow, style } = this;
+//         return (
+//             <ListView
+//                 {...{
+//                     data,
+//                     layoutProvider,
+//                     renderRow,
+//                     onResize,
+//                     scrollAnim,
+//                     setMessageContainerRef,
+//                     style,
+//                 }}
+//                 extendedState={{ data, read, ...extendedState }}
+//                 forceNonDeterministicRendering
+//                 onEndReached={onEndReached}
+//                 onEndReachedThreshold={240}
+//                 rowCount={data.length}
+//             />
+//         );
+//     }
+// }
+
+const MessagesList = ({ extendedState, onEndReached, ...props }) => {
+    const [{ messages: data, messageContainerRef, partner, read, user }] = useChat();
+    const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
+    const extendedListState = useMemo(() => ({ data, read, ...extendedState }), [data, extendedState, read]);
+
+    const renderRow = useCallback((currentMessage, index) => {
         if (!currentMessage) {
             return null;
         }
@@ -71,16 +151,14 @@ class MessagesList extends Component {
             currentMessage.user = { id: 0 };
         }
 
-        const { data, user, partner, read, ...rest } = this.props;
-
         if (data && user) {
             const previousMessage = data[index + 1];
             const nextMessage = data[index - 1];
             const isOwn =
                 currentMessage.user && currentMessage.user.id === user._id;
             const messageProps = {
-                ...rest,
-                isSmall,
+                ...props,
+                // isSmall,
                 user,
                 partner,
                 key: currentMessage.id,
@@ -94,45 +172,38 @@ class MessagesList extends Component {
         }
 
         return null;
-    };
+    }, []);
 
-    get style() {
-        return {
-            flex: 1,
-            transform: 'scaleY(-1)',
-        };
-    }
+    const style = useMemo(() => ({
+        flex: 1,
+        transform: 'scaleY(-1)',
+    }), [])
 
-    render() {
-        const {
-            data,
-            extendedState = {},
-            onEndReached,
-            scrollAnim,
-            setMessageContainerRef,
-            read,
-        } = this.props;
-        const { layoutProvider } = this.state;
-        const { onResize, renderRow, style } = this;
-        return (
-            <ListView
-                {...{
-                    data,
-                    layoutProvider,
-                    renderRow,
-                    onResize,
-                    scrollAnim,
-                    setMessageContainerRef,
-                    style,
-                }}
-                extendedState={{ data, read, ...extendedState }}
-                forceNonDeterministicRendering
-                onEndReached={onEndReached}
-                onEndReachedThreshold={240}
-                rowCount={data.length}
-            />
-        );
-    }
+    return (
+        <ListView
+            setMessageContainerRef={messageContainerRef}
+            data={data}
+            extendedState={extendedListState}
+            forceNonDeterministicRendering
+            layoutProvider={layoutProvider}
+            onEndReached={onEndReached}
+            onEndReachedThreshold={240}
+            onResize={onResize}
+            renderRow={renderRow}
+            rowCount={data.length}
+            style={style}
+        />
+    );
+};
+
+MessagesList.propTypes = {
+    onEndReached: PropTypes.func,
+    setMessageContainerRef: PropTypes.func,
+    scrollAnim: PropTypes.instanceOf(Animated.Value),
+};
+
+MessagesList.defaultProps = {
+    scrollAnim: new Animated.Value(0),
 }
 
 export default MessagesList;

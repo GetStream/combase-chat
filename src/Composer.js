@@ -22,7 +22,7 @@ const Input = styled(AutosizeTextArea)`
 
     &::-webkit-input-placeholder {
         color: ${({ theme }) =>
-            theme.colorUtils.fade(theme.color.alt_text, 0.56)};
+        theme.colorUtils.fade(theme.color.alt_text, 0.56)};
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
@@ -51,10 +51,10 @@ const renderAttachments = (attachments, deleteAttachment) =>
 const Composer = ({
     attachments,
     deleteAttachment,
+    inputRef,
     onTextChanged,
     onSend,
     placeholder,
-    textInputProps,
     text,
 }) => {
     const onKeyDown = useCallback(
@@ -82,12 +82,10 @@ const Composer = ({
             <Input
                 rows={1}
                 onChange={handleChange}
-                {...{
-                    placeholder,
-                    onKeyDown,
-                }}
+                onKeyDown={onKeyDown}
+                placeholder={placeholder}
                 value={text}
-                {...textInputProps}
+                ref={inputRef}
             />
             {attachments.length ? (
                 <Attachments>
