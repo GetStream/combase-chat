@@ -321,4 +321,13 @@ const Chat = ({
     );
 };
 
+Chat.propTypes = {
+    channelId: PropTypes.string,
+    messages: PropTypes.array,
+    onSend: PropTypes.func,
+    partner: PropTypes.object,
+    read: PropTypes.object,
+    user: PropTypes.object,
+}
+
 export default withTheme(Chat);
