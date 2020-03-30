@@ -207,7 +207,15 @@ const initialState = {
     typingDisabled: false,
 };
 
-const Chat = ({ channelId, children, onSend, partner, read, user }) => {
+const Chat = ({
+    channelId,
+    children,
+    messages,
+    onSend,
+    partner,
+    read,
+    user,
+}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const messageContainerRef = useRef(null);
     const textInputRef = useRef(null);
@@ -283,9 +291,12 @@ const Chat = ({ channelId, children, onSend, partner, read, user }) => {
                 handleInputChange,
                 handleSend,
                 messageContainerRef,
+                messages,
+                partner,
                 read,
                 setInputToolbarHeight,
                 textInputRef,
+                user,
             },
         ],
         [
@@ -293,10 +304,13 @@ const Chat = ({ channelId, children, onSend, partner, read, user }) => {
             handleInputChange,
             handleSend,
             messageContainerRef,
+            messages,
+            partner,
             setInputToolbarHeight,
             read,
             state,
             textInputRef,
+            user,
         ]
     );
 
