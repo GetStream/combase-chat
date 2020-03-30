@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { ActionsGroup, Avatar, IconButton, Text } from '@comba.se/ui';
@@ -72,10 +73,10 @@ const ChatHeader = ({ headerActions, onBackClick }) => {
                             {partner.online
                                 ? 'Active Now'
                                 : partner.last_active
-                                    ? `Last active: ${moment(
-                                        partner.last_active
-                                    ).fromNow()}`
-                                    : 'Offline'}
+                                ? `Last active: ${moment(
+                                      partner.last_active
+                                  ).fromNow()}`
+                                : 'Offline'}
                         </Text>
                     </Content>
                 </UserWrapper>
@@ -83,7 +84,7 @@ const ChatHeader = ({ headerActions, onBackClick }) => {
             <Actions>{headerActions}</Actions>
         </Root>
     );
-}
+};
 
 ChatHeader.propTypes = {
     headerActions: PropTypes.array,

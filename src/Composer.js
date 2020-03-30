@@ -22,7 +22,7 @@ const Input = styled(AutosizeTextArea)`
 
     &::-webkit-input-placeholder {
         color: ${({ theme }) =>
-        theme.colorUtils.fade(theme.color.alt_text, 0.56)};
+            theme.colorUtils.fade(theme.color.alt_text, 0.56)};
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {

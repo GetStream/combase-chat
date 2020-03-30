@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { Container } from '@comba.se/ui';
 
 // Hooks //
-import useChat from 'hooks/useChats';
-import useLayout from 'hooks/useLayout';
+import useChat from './hooks/useChat';
+import useLayout from './hooks/useLayout';
 
 // Components //
 import Actions from './Actions';
@@ -25,13 +25,11 @@ const Root = styled(Container)`
     }
 `;
 
-const InputToolbar = ({
-    inputProps,
-    onResize,
-    placeholder,
-}) => {
+const InputToolbar = ({ inputProps, onResize, placeholder }) => {
     const [layout, setRef] = useLayout(onResize);
-    const [{ channelId, handleSend, handleInputChange, inputRef, text }] = useChats();
+    const [
+        { channelId, handleSend, handleInputChange, inputRef, text },
+    ] = useChat();
 
     const [
         attachments,
@@ -57,7 +55,6 @@ const InputToolbar = ({
                     deleteAttachment,
                     inputRef,
                     onSend,
-                    onTextChanged,
                     placeholder,
                 }}
             />
@@ -73,7 +70,7 @@ InputToolbar.propTypes = {
 };
 
 InputToolbar.defaultProps = {
-    placeholder: 'Type a message'
+    placeholder: 'Type a message',
 };
 
 export default InputToolbar;

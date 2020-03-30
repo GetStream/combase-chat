@@ -138,9 +138,14 @@ import Message from './Message';
 // }
 
 const MessagesList = ({ extendedState, onEndReached, ...props }) => {
-    const [{ messages: data, messageContainerRef, partner, read, user }] = useChat();
+    const [
+        { messages: data, messageContainerRef, partner, read, user },
+    ] = useChat();
     const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
-    const extendedListState = useMemo(() => ({ data, read, ...extendedState }), [data, extendedState, read]);
+    const extendedListState = useMemo(
+        () => ({ data, read, ...extendedState }),
+        [data, extendedState, read]
+    );
 
     const renderRow = useCallback((currentMessage, index) => {
         if (!currentMessage) {
@@ -174,10 +179,13 @@ const MessagesList = ({ extendedState, onEndReached, ...props }) => {
         return null;
     }, []);
 
-    const style = useMemo(() => ({
-        flex: 1,
-        transform: 'scaleY(-1)',
-    }), [])
+    const style = useMemo(
+        () => ({
+            flex: 1,
+            transform: 'scaleY(-1)',
+        }),
+        []
+    );
 
     return (
         <ListView
@@ -204,6 +212,6 @@ MessagesList.propTypes = {
 
 MessagesList.defaultProps = {
     scrollAnim: new Animated.Value(0),
-}
+};
 
 export default MessagesList;

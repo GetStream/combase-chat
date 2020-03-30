@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useCallback, useMemo, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
 import uuid from 'uuid/v4';
@@ -205,96 +205,106 @@ const initialState = {
     inputToolbarHeight: 0,
     text: '',
     typingDisabled: false,
-}
+};
 
 const Chat = ({ channelId, children, onSend, partner, read, user }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const messageContainerRef = useRef(null);
     const textInputRef = useRef(null);
 
-    const setInputToolbarHeight = useCallback(
-        ({ height }) => {
-            dispatch({
-                type: 'InputToolbar/SetHeight',
-                height
-            })
-        },
-        [],
-    );
+    const setInputToolbarHeight = useCallback(({ height }) => {
+        dispatch({
+            type: 'InputToolbar/SetHeight',
+            height,
+        });
+    }, []);
 
     const resetInputToolbar = useCallback(() => {
         if (textInputRef.current) {
             textInputRef.current.value = '';
         }
         dispatch({
-            type: "InputToolbar/Change",
+            type: 'InputToolbar/Change',
             text: '',
         });
     }, []);
 
-    const handleInputChange = useCallback((text) => {
-        if (state.typingDisabled) {
-            return;
-        }
+    const handleInputChange = useCallback(
+        text => {
+            if (state.typingDisabled) {
+                return;
+            }
 
-        dispatch({
-            type: "InputToolbar/Change",
-            text,
-        });
-    }, [state.typingDisabled])
-
-    const handleSend = useCallback((messages = [], shouldResetInputToolbar = false) => {
-        if (!Array.isArray(messages)) {
-            messages = [messages];
-        }
-
-        if (shouldResetInputToolbar === true) {
             dispatch({
-                type: 'InputToolbar/DisableTyping',
-                disabled: true,
+                type: 'InputToolbar/Change',
+                text,
             });
-            resetInputToolbar();
-        }
+        },
+        [state.typingDisabled]
+    );
 
-        onSend(messages);
+    const handleSend = useCallback(
+        (messages = [], shouldResetInputToolbar = false) => {
+            if (!Array.isArray(messages)) {
+                messages = [messages];
+            }
 
-        if (messageContainerRef.current) {
-            messageContainerRef.current.scrollToTop();
-        }
+            if (shouldResetInputToolbar === true) {
+                dispatch({
+                    type: 'InputToolbar/DisableTyping',
+                    disabled: true,
+                });
+                resetInputToolbar();
+            }
 
-        if (shouldResetInputToolbar === true) {
-            setTimeout(() => {
-                if (isMounted === true) {
+            onSend(messages);
+
+            if (messageContainerRef.current) {
+                messageContainerRef.current.scrollToTop();
+            }
+
+            if (shouldResetInputToolbar === true) {
+                setTimeout(() => {
                     dispatch({
                         type: 'InputToolbar/DisableTyping',
                         disabled: false,
                     });
-                }
-            }, 100);
-        }
-    }, [onSend]);
+                }, 100);
+            }
+        },
+        [onSend]
+    );
 
-
-    const value = useMemo(() => ([
-        state,
-        {
+    const value = useMemo(
+        () => [
+            state,
+            {
+                channelId,
+                handleInputChange,
+                handleSend,
+                messageContainerRef,
+                read,
+                setInputToolbarHeight,
+                textInputRef,
+            },
+        ],
+        [
             channelId,
             handleInputChange,
             handleSend,
             messageContainerRef,
-            read,
             setInputToolbarHeight,
+            read,
+            state,
             textInputRef,
-        }
-    ]), [channelId, handleInputChange, handleSend, messageContainerRef, setInputToolbarHeight, read, state, textInputRef]);
+        ]
+    );
 
     return (
         <ChatContext.Provider value={value}>
-            <Root>
-                {children}
-            </Root>
+            <Root>{children}</Root>
         </ChatContext.Provider>
     );
-}
+};
 
 export default withTheme(Chat);
