@@ -21,6 +21,8 @@ const MessagesWrapper = styled.div`
     );
 `;
 
+// TODO: Re-add typing indicators
+
 // class Chat extends Component {
 //     static propTypes = {
 //         messages: PropTypes.array,
