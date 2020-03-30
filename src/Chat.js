@@ -330,6 +330,6 @@ Chat.propTypes = {
     partner: PropTypes.object,
     read: PropTypes.object,
     user: PropTypes.object,
-}
+};
 
 export default withTheme(Chat);
