@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Animated from 'animated/lib/targets/react-dom';
 import ListView from '@comba.se/ui/ListView';
+import { EmptyState, Text } from '@comba.se/ui';
 
 // Hooks //
 import useChat from './hooks/useChat';
@@ -137,15 +138,16 @@ import Message from './Message';
 //     }
 // }
 
-const MessagesList = ({ extendedState, onEndReached, ...props }) => {
+const MessagesList = ({ extraData, onEndReached, ...props }) => {
     const [
         { messages: data, messageContainerRef, partner, read, user },
     ] = useChat();
     const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
-    const extendedListState = useMemo(
-        () => ({ data, read, ...extendedState }),
-        [data, extendedState, read]
-    );
+    const extendedState = useMemo(() => ({ data, read, ...extraData }), [
+        data,
+        extraData,
+        read,
+    ]);
 
     const renderRow = useCallback((currentMessage, index) => {
         if (!currentMessage) {
@@ -187,11 +189,15 @@ const MessagesList = ({ extendedState, onEndReached, ...props }) => {
         []
     );
 
+    if (!data || !data.length) {
+        return <EmptyState text="No Messages" />;
+    }
+
     return (
         <ListView
             setMessageContainerRef={messageContainerRef}
             data={data}
-            extendedState={extendedListState}
+            extendedState={extendedState}
             forceNonDeterministicRendering
             layoutProvider={layoutProvider}
             onEndReached={onEndReached}
@@ -205,6 +211,7 @@ const MessagesList = ({ extendedState, onEndReached, ...props }) => {
 };
 
 MessagesList.propTypes = {
+    extraData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     onEndReached: PropTypes.func,
     setMessageContainerRef: PropTypes.func,
     scrollAnim: PropTypes.instanceOf(Animated.Value),

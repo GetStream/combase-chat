@@ -51,6 +51,9 @@ const Actions = styled(ActionsGroup)`
 
 const ChatHeader = ({ headerActions, onBackClick }) => {
     const [{ partner }] = useChat();
+    if (!partner) {
+        return null;
+    }
     return (
         <Root>
             <Main>

@@ -5,7 +5,7 @@ import { Container } from '@comba.se/ui';
 
 // Hooks //
 import useChat from './hooks/useChat';
-import useLayout from './hooks/useLayout';
+// import useLayout from './hooks/useLayout';
 
 // Components //
 import Actions from './Actions';
@@ -25,11 +25,19 @@ const Root = styled(Container)`
     }
 `;
 
-const InputToolbar = ({ inputProps, onResize, placeholder }) => {
-    const [layout, setRef] = useLayout(onResize);
+const InputToolbar = ({ placeholder }) => {
     const [
-        { channelId, handleSend, handleInputChange, inputRef, text },
+        {
+            channelId,
+            handleSend,
+            handleInputChange,
+            handleInputResize,
+            inputRef,
+            text,
+        },
     ] = useChat();
+
+    // const [layout, setRef] = useLayout(handleInputResize);
 
     const [
         attachments,
@@ -45,7 +53,7 @@ const InputToolbar = ({ inputProps, onResize, placeholder }) => {
     );
 
     return (
-        <Root ref={setRef} maxWidth={840}>
+        <Root maxWidth={840}>
             <Actions onAttachment={uploadAttachment} />
             <Composer
                 onTextChanged={handleInputChange}

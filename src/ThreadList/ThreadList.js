@@ -29,7 +29,13 @@ const ListLoadingComponent = () => (
     </>
 );
 
-export default ({ channels, error, loading, leftButtonElement }) => {
+export default ({
+    channels,
+    error,
+    loading,
+    leftButtonElement,
+    renderThread,
+}) => {
     const [{ width }, onResize] = useState(initialState);
     const [layoutProvider, setLayoutProvider] = useState(
         LayoutUtil.getLayoutProvider(width, 80)
@@ -66,13 +72,13 @@ export default ({ channels, error, loading, leftButtonElement }) => {
                 layoutProvider,
                 ListLoadingComponent,
                 onResize,
-                renderRow,
                 style,
             }}
             loading={loading && !channels.length}
             data={channels}
             ListHeaderComponent={renderListHeader}
             ListEmptyComponent={renderListEmpty}
+            renderRow={renderThread || renderRow}
             rowCount={channels.length}
             showEmptyHeader
         />

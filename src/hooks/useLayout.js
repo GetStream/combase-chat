@@ -5,20 +5,21 @@ export default onResize => {
     const [ref, setElRef] = useState(null);
     const [layout, setLayout] = useState(null);
 
-    const handleResize = useCallback(entries => {
-        const [entry] = entries;
-        const { blockSize: height, inlineSize: width } = entry;
+    const handleResize = useCallback(
+        entries => {
+            const [entry] = entries;
+            const { blockSize: height, inlineSize: width } = entry;
 
-        setLayout({ width, height });
+            setLayout({ width, height });
 
-        if (onResize) {
-            onResize({ width, height });
-        }
-    }, []);
+            if (onResize) {
+                onResize({ width, height });
+            }
+        },
+        [onResize]
+    );
 
-    const { observer } = useMemo(() => {
-        new ResizeObserver(handleResize);
-    });
+    const observer = useMemo(() => new ResizeObserver(handleResize), []);
 
     useEffect(() => {
         if (ref) {
