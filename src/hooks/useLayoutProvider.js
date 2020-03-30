@@ -7,7 +7,7 @@ export default (data, user) => {
         LayoutProvider(width, data, user)
     );
 
-    const handleResize = useCallback(width => {
+    const handleResize = useCallback(({ width }) => {
         setWidth(width);
     }, []);
 

@@ -6,6 +6,12 @@ export default (state, action) => {
             return { ...state, typingDisabled: action.disabled };
         case 'InputToolbar/SetHeight':
             return { ...state, inputToolbarHeight: action.height };
+        case 'MessageList/SetDimensions':
+            return {
+                ...state,
+                chatWidth: action.width,
+                chatHeight: action.height,
+            };
         default:
             return state;
     }

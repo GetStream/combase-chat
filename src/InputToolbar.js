@@ -26,16 +26,14 @@ const Root = styled(Container)`
 `;
 
 const InputToolbar = ({ placeholder }) => {
-    const [
-        { text },
-        {
-            channelId,
-            handleSend,
-            handleInputChange,
-            handleInputResize,
-            inputRef,
-        },
-    ] = useChat();
+    const {
+        channelId,
+        handleSend,
+        handleInputChange,
+        handleInputResize,
+        inputRef,
+        text,
+    } = useChat();
 
     // const [layout, setRef] = useLayout(handleInputResize);
 

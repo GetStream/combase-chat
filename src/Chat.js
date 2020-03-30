@@ -204,6 +204,8 @@ const MessagesWrapper = styled.div`
 // }
 
 const initialState = {
+    chatHeight: 0,
+    chatWidth: 0,
     inputToolbarHeight: 0,
     text: '',
     typingDisabled: false,
@@ -285,21 +287,19 @@ const Chat = ({
     );
 
     const value = useMemo(
-        () => [
-            state,
-            {
-                channelId,
-                handleInputChange,
-                handleSend,
-                messageContainerRef,
-                messages,
-                partner,
-                read,
-                setInputToolbarHeight,
-                textInputRef,
-                user,
-            },
-        ],
+        () => ({
+            ...state,
+            channelId,
+            handleInputChange,
+            handleSend,
+            messageContainerRef,
+            messages,
+            partner,
+            read,
+            setInputToolbarHeight,
+            textInputRef,
+            user,
+        }),
         [
             channelId,
             handleInputChange,

@@ -139,9 +139,13 @@ import Message from './Message';
 // }
 
 const MessagesList = ({ extraData, onEndReached, ...props }) => {
-    const [
-        { messages: data, messageContainerRef, partner, read, user },
-    ] = useChat();
+    const {
+        messages: data,
+        messageContainerRef,
+        partner,
+        read,
+        user,
+    } = useChat();
     const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
     const extendedState = useMemo(() => ({ data, read, ...extraData }), [
         data,
@@ -149,37 +153,40 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
         read,
     ]);
 
-    const renderRow = useCallback((currentMessage, index) => {
-        if (!currentMessage) {
+    const renderRow = useCallback(
+        (currentMessage, index) => {
+            if (!currentMessage) {
+                return null;
+            }
+            if (!currentMessage.user && !currentMessage.system) {
+                console.warn('`user` is missing from message.');
+                currentMessage.user = { id: 0 };
+            }
+
+            if (data && user) {
+                const previousMessage = data[index + 1];
+                const nextMessage = data[index - 1];
+                const isOwn =
+                    currentMessage.user && currentMessage.user.id === user._id;
+                const messageProps = {
+                    ...props,
+                    // isSmall,
+                    user,
+                    partner,
+                    key: currentMessage.id,
+                    currentMessage,
+                    previousMessage,
+                    nextMessage,
+                    isRead: read.last_read >= currentMessage.created_at,
+                    position: isOwn ? 'right' : 'left',
+                };
+                return <Message {...{ width }} {...messageProps} />;
+            }
+
             return null;
-        }
-        if (!currentMessage.user && !currentMessage.system) {
-            console.warn('`user` is missing from message.');
-            currentMessage.user = { id: 0 };
-        }
-
-        if (data && user) {
-            const previousMessage = data[index + 1];
-            const nextMessage = data[index - 1];
-            const isOwn =
-                currentMessage.user && currentMessage.user.id === user._id;
-            const messageProps = {
-                ...props,
-                // isSmall,
-                user,
-                partner,
-                key: currentMessage.id,
-                currentMessage,
-                previousMessage,
-                nextMessage,
-                isRead: read.last_read >= currentMessage.created_at,
-                position: isOwn ? 'right' : 'left',
-            };
-            return <Message {...{ width }} {...messageProps} />;
-        }
-
-        return null;
-    }, []);
+        },
+        [width]
+    );
 
     const style = useMemo(
         () => ({
