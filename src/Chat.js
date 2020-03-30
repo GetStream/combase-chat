@@ -244,7 +244,6 @@ const Chat = ({
             if (state.typingDisabled) {
                 return;
             }
-
             dispatch({
                 type: 'InputToolbar/Change',
                 text,

@@ -27,13 +27,13 @@ const Root = styled(Container)`
 
 const InputToolbar = ({ placeholder }) => {
     const [
+        { text },
         {
             channelId,
             handleSend,
             handleInputChange,
             handleInputResize,
             inputRef,
-            text,
         },
     ] = useChat();
 
@@ -51,22 +51,22 @@ const InputToolbar = ({ placeholder }) => {
         },
         [clearAttachments, handleSend]
     );
-
+    console.log('text', text);
     return (
         <Root maxWidth={840}>
             <Actions onAttachment={uploadAttachment} />
             <Composer
                 onTextChanged={handleInputChange}
                 text={text}
+                onSend={handleSend}
                 {...{
                     attachments,
                     deleteAttachment,
                     inputRef,
-                    onSend,
                     placeholder,
                 }}
             />
-            <SendButton {...{ onSend, text }} />
+            <SendButton onSend={handleSend} text={text} />
         </Root>
     );
 };

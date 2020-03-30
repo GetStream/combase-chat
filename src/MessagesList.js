@@ -189,10 +189,6 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
         []
     );
 
-    if (!data || !data.length) {
-        return <EmptyState text="No Messages" />;
-    }
-
     return (
         <div style={{ flex: 1 }}>
             <ListView
@@ -205,7 +201,7 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
                 onEndReachedThreshold={240}
                 onResize={onResize}
                 renderRow={renderRow}
-                rowCount={data.length}
+                rowCount={data ? data.length : 0}
                 style={style}
             />
         </div>
