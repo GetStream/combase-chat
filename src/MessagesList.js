@@ -194,19 +194,21 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
     }
 
     return (
-        <ListView
-            setMessageContainerRef={messageContainerRef}
-            data={data}
-            extendedState={extendedState}
-            forceNonDeterministicRendering
-            layoutProvider={layoutProvider}
-            onEndReached={onEndReached}
-            onEndReachedThreshold={240}
-            onResize={onResize}
-            renderRow={renderRow}
-            rowCount={data.length}
-            style={style}
-        />
+        <div style={{ flex: 1 }}>
+            <ListView
+                setMessageContainerRef={messageContainerRef}
+                data={data}
+                extendedState={extendedState}
+                forceNonDeterministicRendering
+                layoutProvider={layoutProvider}
+                onEndReached={onEndReached}
+                onEndReachedThreshold={240}
+                onResize={onResize}
+                renderRow={renderRow}
+                rowCount={data.length}
+                style={style}
+            />
+        </div>
     );
 };
 

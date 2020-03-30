@@ -51,9 +51,6 @@ const Actions = styled(ActionsGroup)`
 
 const ChatHeader = ({ headerActions, onBackClick }) => {
     const [{ partner }] = useChat();
-    if (!partner) {
-        return null;
-    }
     return (
         <Root>
             <Main>
@@ -62,27 +59,29 @@ const ChatHeader = ({ headerActions, onBackClick }) => {
                     color="text"
                     onClick={onBackClick}
                 />
-                <UserWrapper>
-                    <Avatar
-                        src={partner.avatar}
-                        name={partner.name}
-                        size={32}
-                        showStatus={partner.online}
-                        status={partner.online ? 'online' : 'offline'}
-                    />
-                    <Content>
-                        <Text weight="500">{partner.name}</Text>
-                        <Text size={12} faded>
-                            {partner.online
-                                ? 'Active Now'
-                                : partner.last_active
-                                ? `Last active: ${moment(
-                                      partner.last_active
-                                  ).fromNow()}`
-                                : 'Offline'}
-                        </Text>
-                    </Content>
-                </UserWrapper>
+                {partner ? (
+                    <UserWrapper>
+                        <Avatar
+                            src={partner.avatar}
+                            name={partner.name}
+                            size={32}
+                            showStatus={partner.online}
+                            status={partner.online ? 'online' : 'offline'}
+                        />
+                        <Content>
+                            <Text weight="500">{partner.name}</Text>
+                            <Text size={12} faded>
+                                {partner.online
+                                    ? 'Active Now'
+                                    : partner.last_active
+                                    ? `Last active: ${moment(
+                                          partner.last_active
+                                      ).fromNow()}`
+                                    : 'Offline'}
+                            </Text>
+                        </Content>
+                    </UserWrapper>
+                ) : null}
             </Main>
             <Actions>{headerActions}</Actions>
         </Root>
