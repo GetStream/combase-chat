@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useReducer, useRef } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useReducer,
+    useRef,
+} from 'react';
 import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
 import { useChannel } from 'stream-chat-hooks';
@@ -226,6 +232,12 @@ const Chat = ({ channelId, children, onSend }) => {
     const messageContainerRef = useRef(null);
     const textInputRef = useRef(null);
 
+    const markRead = useCallback(async () => {
+        if (channel) {
+            await channel.markRead();
+        }
+    }, [channel]);
+
     const showTypingIndicator = useMemo(
         () => (partner ? typing[partner.id] : false),
         [typing, partner]
@@ -288,6 +300,10 @@ const Chat = ({ channelId, children, onSend }) => {
         },
         [channel]
     );
+
+    useEffect(() => {
+        markRead();
+    }, [channel.id]);
 
     const value = useMemo(
         () => ({

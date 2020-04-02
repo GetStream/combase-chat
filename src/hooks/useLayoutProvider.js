@@ -8,7 +8,6 @@ export default (data, user) => {
     );
 
     const handleResize = useCallback(({ width }) => {
-        console.log('width', width);
         setWidth(width);
     }, []);
 
