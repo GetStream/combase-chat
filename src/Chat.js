@@ -1,7 +1,10 @@
 import React, { useCallback, useMemo, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
-import uuid from 'uuid/v4';
+import { useChannel } from 'stream-chat-hooks';
+
+// Hooks //
+import useAuth from 'hooks/useAuth';
 
 // Context //
 import ChatContext, { reducer } from './contexts/Chat';
@@ -211,18 +214,22 @@ const initialState = {
     typingDisabled: false,
 };
 
-const Chat = ({
-    channelId,
-    children,
-    messages,
-    onSend,
-    partner,
-    read,
-    user,
-}) => {
+const Chat = ({ channelId, children, onSend }) => {
+    const [{ user }] = useAuth();
+    const [
+        { messages, typing, partner, read },
+        channel,
+        loadMoreMessages,
+    ] = useChannel(channelId);
+
     const [state, dispatch] = useReducer(reducer, initialState);
     const messageContainerRef = useRef(null);
     const textInputRef = useRef(null);
+
+    const showTypingIndicator = useMemo(
+        () => (partner ? typing[partner.id] : false),
+        [typing, partner]
+    );
 
     const setInputToolbarHeight = useCallback(({ height }) => {
         dispatch({
@@ -255,11 +262,7 @@ const Chat = ({
     );
 
     const handleSend = useCallback(
-        (messages = [], shouldResetInputToolbar = false) => {
-            if (!Array.isArray(messages)) {
-                messages = [messages];
-            }
-
+        async (message, shouldResetInputToolbar = false) => {
             if (shouldResetInputToolbar === true) {
                 dispatch({
                     type: 'InputToolbar/DisableTyping',
@@ -268,7 +271,7 @@ const Chat = ({
                 resetInputToolbar();
             }
 
-            onSend(messages);
+            await channel.sendMessage(message);
 
             if (messageContainerRef.current) {
                 messageContainerRef.current.scrollToTop();
@@ -283,7 +286,7 @@ const Chat = ({
                 }, 100);
             }
         },
-        [onSend]
+        [channel]
     );
 
     const value = useMemo(
@@ -292,6 +295,8 @@ const Chat = ({
             channelId,
             handleInputChange,
             handleSend,
+            showTypingIndicator,
+            loadMoreMessages,
             messageContainerRef,
             messages,
             partner,
@@ -304,6 +309,8 @@ const Chat = ({
             channelId,
             handleInputChange,
             handleSend,
+            showTypingIndicator,
+            loadMoreMessages,
             messageContainerRef,
             messages,
             partner,
@@ -324,11 +331,5 @@ const Chat = ({
 
 Chat.propTypes = {
     channelId: PropTypes.string,
-    messages: PropTypes.array,
-    onSend: PropTypes.func,
-    partner: PropTypes.object,
-    read: PropTypes.object,
-    user: PropTypes.object,
 };
-
 export default withTheme(Chat);

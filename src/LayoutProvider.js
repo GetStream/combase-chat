@@ -11,9 +11,9 @@ export default (width = 375, data, user) =>
                 return 'SystemMessage';
             }
 
-            const hasAttachments = !!currentMessage.attachments;
+            const hasAttachments = !!currentMessage.attachments.length;
 
-            const isOwn = user.id === currentMessage.user.id;
+            const isOwn = user._id === currentMessage.user.id;
             const hasDate = !isSameSection(currentMessage, previousMessage);
 
             if (isOwn) {
@@ -54,14 +54,10 @@ export default (width = 375, data, user) =>
                     dim.height = 248;
                     dim.width = width || 375;
                     break;
-                case 'UserMessage':
-                case 'PartnerMessage':
+                default:
                     dim.height = 200;
                     dim.width = width || 375;
                     break;
-                default:
-                    dim.height = 0;
-                    dim.width = 0;
             }
         }
     );

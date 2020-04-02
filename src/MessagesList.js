@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Animated from 'animated/lib/targets/react-dom';
 import ListView from '@comba.se/ui/ListView';
-import { EmptyState, Text } from '@comba.se/ui';
 
 // Hooks //
 import useChat from './hooks/useChat';
@@ -10,6 +10,10 @@ import useLayoutProvider from './hooks/useLayoutProvider';
 
 // Components //
 import Message from './Message';
+
+const Root = styled.div`
+    flex: 1;
+`;
 
 // class MessagesList extends Component {
 //     static propTypes = {
@@ -138,15 +142,18 @@ import Message from './Message';
 //     }
 // }
 
-const MessagesList = ({ extraData, onEndReached, ...props }) => {
+const MessagesList = ({ extraData, ...props }) => {
     const {
+        loadMoreMessages,
         messages: data,
         messageContainerRef,
         partner,
         read,
         user,
     } = useChat();
+
     const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
+
     const extendedState = useMemo(() => ({ data, read, ...extraData }), [
         data,
         extraData,
@@ -155,6 +162,7 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
 
     const renderRow = useCallback(
         (currentMessage, index) => {
+            console.log('currentMessage', currentMessage);
             if (!currentMessage) {
                 return null;
             }
@@ -180,12 +188,13 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
                     isRead: read.last_read >= currentMessage.created_at,
                     position: isOwn ? 'right' : 'left',
                 };
+
                 return <Message {...{ width }} {...messageProps} />;
             }
 
             return null;
         },
-        [width]
+        [width, read, partner, user]
     );
 
     const style = useMemo(
@@ -196,29 +205,30 @@ const MessagesList = ({ extraData, onEndReached, ...props }) => {
         []
     );
 
+    console.log('data', data);
+
     return (
-        <div style={{ flex: 1 }}>
+        <Root>
             <ListView
+                debug
                 setMessageContainerRef={messageContainerRef}
                 data={data}
                 extendedState={extendedState}
                 forceNonDeterministicRendering
                 layoutProvider={layoutProvider}
-                onEndReached={onEndReached}
+                onEndReached={loadMoreMessages}
                 onEndReachedThreshold={240}
                 onResize={onResize}
                 renderRow={renderRow}
                 rowCount={data ? data.length : 0}
                 style={style}
             />
-        </div>
+        </Root>
     );
 };
 
 MessagesList.propTypes = {
     extraData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    onEndReached: PropTypes.func,
-    setMessageContainerRef: PropTypes.func,
     scrollAnim: PropTypes.instanceOf(Animated.Value),
 };
 

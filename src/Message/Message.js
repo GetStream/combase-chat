@@ -69,7 +69,6 @@ class Message extends Component {
 
         return (
             (!isRead && nextProps.isRead) ||
-            isSmall !== nextProps.isSmall ||
             width !== nextProps.width ||
             next.sent !== current.sent ||
             next.received !== current.received ||
@@ -100,7 +99,6 @@ class Message extends Component {
     render() {
         const {
             isRead,
-            isSmall,
             UserMessageComponent,
             PartnerMessageComponent,
             SystemMessageComponent,
@@ -127,12 +125,9 @@ class Message extends Component {
             : UserMessageComponent;
 
         return (
-            <Wrapper {...{ hasPrev, isSmall, width }}>
+            <Wrapper {...{ hasPrev, width }}>
                 {this.renderDay()}
-                <MessageComponent
-                    {...{ isRead, isSmall, hasNext, hasPrev }}
-                    {...rest}
-                />
+                <MessageComponent {...{ isRead, hasNext, hasPrev }} {...rest} />
             </Wrapper>
         );
     }

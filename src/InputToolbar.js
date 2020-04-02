@@ -49,20 +49,18 @@ const InputToolbar = ({ placeholder }) => {
         },
         [clearAttachments, handleSend]
     );
-    console.log('text', text);
+
     return (
         <Root maxWidth={840}>
             <Actions onAttachment={uploadAttachment} />
             <Composer
+                attachments={attachments}
+                deleteAttachment={deleteAttachment}
+                inputRef={inputRef}
                 onTextChanged={handleInputChange}
                 text={text}
-                onSend={handleSend}
-                {...{
-                    attachments,
-                    deleteAttachment,
-                    inputRef,
-                    placeholder,
-                }}
+                onSend={onSend}
+                placeholder={placeholder}
             />
             <SendButton onSend={handleSend} text={text} />
         </Root>
