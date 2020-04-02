@@ -162,7 +162,6 @@ const MessagesList = ({ extraData, ...props }) => {
 
     const renderRow = useCallback(
         (currentMessage, index) => {
-            console.log('currentMessage', currentMessage);
             if (!currentMessage) {
                 return null;
             }
@@ -178,7 +177,6 @@ const MessagesList = ({ extraData, ...props }) => {
                     currentMessage.user && currentMessage.user.id === user._id;
                 const messageProps = {
                     ...props,
-                    // isSmall,
                     user,
                     partner,
                     key: currentMessage.id,
@@ -205,12 +203,9 @@ const MessagesList = ({ extraData, ...props }) => {
         []
     );
 
-    console.log('data', data);
-
     return (
         <Root>
             <ListView
-                debug
                 setMessageContainerRef={messageContainerRef}
                 data={data}
                 extendedState={extendedState}
