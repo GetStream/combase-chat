@@ -14,9 +14,7 @@ const style = { flex: 1 };
 
 const renderListEmpty = () => <EmptyState text="No Threads" />;
 
-const renderRow = ({ id }, index) => (
-    <ThreadItem {...{ id }} />
-);
+const renderRow = ({ id }, index) => <ThreadItem {...{ id }} />;
 
 const ListLoadingComponent = () => (
     <>
