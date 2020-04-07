@@ -5,7 +5,7 @@ import { Container } from '@comba.se/ui';
 
 // Hooks //
 import useChat from './hooks/useChat';
-// import useLayout from './hooks/useLayout';
+import useLayout from './hooks/useLayout';
 
 // Components //
 import Actions from './Actions';
@@ -30,12 +30,12 @@ const InputToolbar = ({ placeholder }) => {
         channelId,
         handleSend,
         handleInputChange,
-        handleInputResize,
         inputRef,
+        setInputToolbarHeight,
         text,
     } = useChat();
-
-    // const [layout, setRef] = useLayout(handleInputResize);
+    console.log('render input toolbar');
+    // const [layout, setRef] = useLayout(setInputToolbarHeight);
 
     const [
         attachments,

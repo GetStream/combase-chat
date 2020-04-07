@@ -32,7 +32,7 @@ export default onResize => {
 
     const setRef = useCallback(
         el => {
-            if (!ref) {
+            if (!ref && el) {
                 setElRef(el);
             }
         },

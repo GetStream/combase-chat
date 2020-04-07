@@ -9,9 +9,6 @@ import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
 import { useChannel } from 'stream-chat-hooks';
 
-// Hooks //
-import useAuth from 'hooks/useAuth';
-
 // Context //
 import ChatContext, { reducer } from './contexts/Chat';
 
@@ -24,12 +21,6 @@ const Root = styled.div`
     flex: 1;
 `;
 
-const MessagesWrapper = styled.div`
-    height: calc(
-        100vh - ${({ inputToolbarHeight }) => inputToolbarHeight + 64}px
-    );
-`;
-
 // TODO: Re-add typing indicators
 const initialState = {
     chatHeight: 0,
@@ -39,8 +30,7 @@ const initialState = {
     typingDisabled: false,
 };
 
-const Chat = ({ channelId, children, onSend }) => {
-    const [{ user }] = useAuth();
+const Chat = ({ channelId, children, user }) => {
     const [
         { messages, typing, partner, read },
         channel,
@@ -63,6 +53,7 @@ const Chat = ({ channelId, children, onSend }) => {
     );
 
     const setInputToolbarHeight = useCallback(({ height }) => {
+        console.log('input height', height);
         dispatch({
             type: 'InputToolbar/SetHeight',
             height,
@@ -120,9 +111,7 @@ const Chat = ({ channelId, children, onSend }) => {
         [channel]
     );
 
-    useEffect(() => {
-        markRead();
-    }, [channel.id]);
+    console.log('channel', channel);
 
     const value = useMemo(
         () => ({
@@ -132,6 +121,7 @@ const Chat = ({ channelId, children, onSend }) => {
             handleSend,
             showTypingIndicator,
             loadMoreMessages,
+            markRead,
             messageContainerRef,
             messages,
             partner,
@@ -146,6 +136,7 @@ const Chat = ({ channelId, children, onSend }) => {
             handleSend,
             showTypingIndicator,
             loadMoreMessages,
+            markRead,
             messageContainerRef,
             messages,
             partner,
@@ -166,5 +157,6 @@ const Chat = ({ channelId, children, onSend }) => {
 
 Chat.propTypes = {
     channelId: PropTypes.string,
+    user: PropTypes.object,
 };
 export default withTheme(Chat);

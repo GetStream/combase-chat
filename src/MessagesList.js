@@ -24,6 +24,7 @@ const MessagesList = ({ extraData, ...props }) => {
         read,
         user,
     } = useChat();
+    console.log('render messages list');
 
     const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
 

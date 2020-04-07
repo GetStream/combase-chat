@@ -2,13 +2,13 @@ import React from 'react';
 import styled, { withTheme } from 'styled-components';
 import moment from 'moment';
 import ContentLoader from 'react-content-loader';
-import { Avatar, Badge, Chip, Fill, Text } from '@comba.se/ui';
+import { Avatar, Badge, Fill, Text } from '@comba.se/ui';
 
 // Styles //
 import listItemInteractions from '@comba.se/ui/styles/css/listItemInteractions';
 
 //  Hooks //
-import { useChannelListener } from 'stream-chat-hooks';
+import useChannelListener from '../hooks/useChannelListener';
 
 // Components //
 const Root = styled.div`
@@ -47,10 +47,10 @@ const renderText = text => {
     return text;
 };
 
-const ThreadItem = ({ active, data, id, partner, statusBorder, theme }) => {
-    const [unread, latestMessage] = useChannelListener(id, active);
+const ThreadItem = ({ active, id, statusBorder, theme }) => {
+    const [channel, unread, latestMessage] = useChannelListener(id, active);
 
-    if (!data || !id || !partner) {
+    if (!channel) {
         return (
             <ContentLoader
                 speed={2}
@@ -66,6 +66,8 @@ const ThreadItem = ({ active, data, id, partner, statusBorder, theme }) => {
             </ContentLoader>
         );
     }
+
+    const { data, partner } = channel;
 
     return (
         <Root to={`/inbox/${id}`}>
@@ -102,8 +104,6 @@ const ThreadItem = ({ active, data, id, partner, statusBorder, theme }) => {
                                 ? renderText(latestMessage.text)
                                 : 'No Messages'}
                         </LatestMessage>
-                        <Fill />
-                        <Chip label="OPEN" color="green" size={8} />
                     </Row>
                 </Content>
             </Wrapper>
