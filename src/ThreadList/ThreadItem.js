@@ -70,7 +70,7 @@ const ThreadItem = ({ active, id, statusBorder, theme }) => {
     const { data, partner } = channel;
 
     return (
-        <Root to={`/inbox/${id}`}>
+        <Root>
             <Wrapper {...{ active }}>
                 <Avatar
                     name={partner.name}
@@ -86,16 +86,18 @@ const ThreadItem = ({ active, id, statusBorder, theme }) => {
                         <Text weight="500">{partner.name}</Text>
                         <Fill />
                         <Text color="gray" size={12}>
-                            {moment(latestMessage
-                                ? latestMessage.created_at
-                                : data.created_at).calendar(null, {
-                                    sameDay: 'hh:mma',
-                                    nextDay: '[Tomorrow]',
-                                    nextWeek: 'ddd',
-                                    lastDay: '[Yesterday]',
-                                    lastWeek: 'ddd',
-                                    sameElse: 'MM/DD/YYYY'
-                                })}
+                            {moment(
+                                latestMessage
+                                    ? latestMessage.created_at
+                                    : data.created_at
+                            ).calendar(null, {
+                                sameDay: 'hh:mma',
+                                nextDay: '[Tomorrow]',
+                                nextWeek: 'ddd',
+                                lastDay: '[Yesterday]',
+                                lastWeek: 'ddd',
+                                sameElse: 'MM/DD/YYYY',
+                            })}
                         </Text>
                     </Row>
                     <Row>
