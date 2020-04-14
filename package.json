@@ -5,32 +5,32 @@
   "description": "Chat Components for Combase • Powered By Stream",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
+    "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.7",
-    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "husky": "^4.2.3",
-    "prettier": "^1.19.1",
-    "react-is": "^16.13.0"
+    "prettier": "^2.0.4",
+    "react-is": "^16.13.1"
   },
   "peerDependencies": {
-    "@comba.se/ui": "^0.0.60",
+    "@comba.se/ui": "^0.0.80",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-spring": "^8.0.27",
     "recyclerlistview": "^3.0.0",
-    "stream-chat": "^1.4.0",
-    "stream-chat-hooks": "^0.0.12",
-    "styled-components": "^5.0.1"
+    "stream-chat": "^1.7.1",
+    "stream-chat-hooks": "^0.0.13",
+    "styled-components": "^5.1.0"
   },
   "main": "dist/index.js",
   "scripts": {
@@ -57,6 +57,6 @@
   "homepage": "https://github.com/GetStream/combase-chat#readme",
   "dependencies": {
     "@comba.se/ui": "^0.0.79",
-    "react-content-loader": "^5.0.2"
+    "react-content-loader": "^5.0.3"
   }
 }

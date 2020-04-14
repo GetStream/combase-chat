@@ -23,7 +23,7 @@ const MessageWrapper = styled.div`
     align-items: ${({ pos }) => (pos === 'left' ? 'flex-start' : 'flex-end')};
 `;
 
-export default WrappedComponent => props => {
+export default (WrappedComponent) => (props) => {
     const { hasNext, position: pos } = props;
     return (
         <Root>

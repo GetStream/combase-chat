@@ -3,7 +3,7 @@ import { isSameSection } from './utils';
 
 export default (width = 375, data, user) =>
     new LayoutProvider(
-        index => {
+        (index) => {
             const currentMessage = data[index];
             const previousMessage = data[index + 1];
 

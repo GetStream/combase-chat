@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Container } from '@comba.se/ui';
@@ -34,9 +34,14 @@ const InputToolbar = ({ placeholder }) => {
         setInputToolbarHeight,
         text,
     } = useChat();
-    console.log('render input toolbar');
-    // const [layout, setRef] = useLayout(setInputToolbarHeight);
 
+    const [layout, setRef] = useLayout();
+    console.log('layout', layout);
+    useEffect(() => {
+        if (layout) {
+            setInputToolbarHeight(layout.height);
+        }
+    }, [layout]);
     const [
         attachments,
         { uploadAttachment, deleteAttachment, clearAttachments },
@@ -51,7 +56,7 @@ const InputToolbar = ({ placeholder }) => {
     );
 
     return (
-        <Root maxWidth={840}>
+        <Root ref={setRef} maxWidth={840}>
             <Actions onAttachment={uploadAttachment} />
             <Composer
                 attachments={attachments}

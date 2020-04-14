@@ -25,7 +25,7 @@ export default (channelId, active) => {
     }, [active, channel]);
 
     const handleEvent = useCallback(
-        data => {
+        (data) => {
             getUnreadCount();
             setLatestMessage(data.message);
         },

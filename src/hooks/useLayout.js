@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import ResizeObserver from '@comba.se/ui/utils/ResizeObserver';
 
-export default onResize => {
+export default (onResize) => {
     const [ref, setElRef] = useState(null);
     const [layout, setLayout] = useState(null);
 
     const handleResize = useCallback(
-        entries => {
+        (entries) => {
             const [entry] = entries;
             const { blockSize: height, inlineSize: width } = entry;
 
@@ -31,7 +31,7 @@ export default onResize => {
     }, [observer, ref]);
 
     const setRef = useCallback(
-        el => {
+        (el) => {
             if (!ref && el) {
                 setElRef(el);
             }

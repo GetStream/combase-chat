@@ -40,7 +40,7 @@ const Row = styled.div`
 
 const LatestMessage = styled(Text)``;
 
-const renderText = text => {
+const renderText = (text) => {
     if (text.length >= 32) {
         return `${text.slice(0, 32)}...`;
     }

@@ -13,10 +13,16 @@ import Message from './Message';
 
 const Root = styled.div`
     flex: 1;
+    height: calc(
+        100% -
+            ${({ inputToolbarHeight = 80, headerHeight = 64 }) =>
+                inputToolbarHeight + headerHeight}px
+    );
 `;
 
 const MessagesList = ({ extraData, ...props }) => {
     const {
+        inputToolbarHeight,
         loadMoreMessages,
         messages: data,
         messageContainerRef,
@@ -24,7 +30,6 @@ const MessagesList = ({ extraData, ...props }) => {
         read,
         user,
     } = useChat();
-    console.log('render messages list');
 
     const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
 
@@ -40,7 +45,7 @@ const MessagesList = ({ extraData, ...props }) => {
                 return null;
             }
             if (!currentMessage.user && !currentMessage.system) {
-                console.warn('`user` is missing from message.');
+                console.warn('`user` is missing from message data.');
                 currentMessage.user = { id: 0 };
             }
 
@@ -71,7 +76,7 @@ const MessagesList = ({ extraData, ...props }) => {
 
     const style = useMemo(
         () => ({
-            flex: 1,
+            height: '100%',
             transform: 'scaleY(-1)',
         }),
         []

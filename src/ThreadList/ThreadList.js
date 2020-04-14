@@ -45,7 +45,7 @@ export default ({
     }, [width]);
 
     const renderListHeader = useCallback(
-        props => (
+        (props) => (
             <ListHeader
                 {...props}
                 leftButtonElement={leftButtonElement}

@@ -58,7 +58,7 @@ const Composer = ({
     text,
 }) => {
     const onKeyDown = useCallback(
-        e => {
+        (e) => {
             if (e.keyCode === 13 && !e.shiftKey) {
                 if (!text) {
                     return e.preventDefault();

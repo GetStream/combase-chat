@@ -19,9 +19,9 @@ import MessagesList from './MessagesList';
 
 const Root = styled.div`
     flex: 1;
+    width: 100%;
 `;
 
-// TODO: Re-add typing indicators
 const initialState = {
     chatHeight: 0,
     chatWidth: 0,
@@ -53,7 +53,6 @@ const Chat = ({ channelId, children, user }) => {
     );
 
     const setInputToolbarHeight = useCallback(({ height }) => {
-        console.log('input height', height);
         dispatch({
             type: 'InputToolbar/SetHeight',
             height,
@@ -71,7 +70,7 @@ const Chat = ({ channelId, children, user }) => {
     }, []);
 
     const handleInputChange = useCallback(
-        text => {
+        (text) => {
             if (state.typingDisabled) {
                 return;
             }
@@ -111,8 +110,6 @@ const Chat = ({ channelId, children, user }) => {
         [channel]
     );
 
-    console.log('channel', channel);
-
     const value = useMemo(
         () => ({
             ...state,
@@ -147,6 +144,8 @@ const Chat = ({ channelId, children, user }) => {
             user,
         ]
     );
+
+    console.log('Chat Context', value);
 
     return (
         <ChatContext.Provider value={value}>
