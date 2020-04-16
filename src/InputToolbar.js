@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Container } from '@comba.se/ui';
+import { useMedia } from '@comba.se/ui/hooks';
 
 // Hooks //
 import useChat from './hooks/useChat';
@@ -20,9 +21,12 @@ const Root = styled(Container)`
     padding-top: 16px;
     padding-bottom: 16px;
     border-top: 1px solid ${({ theme }) => theme.color.border};
-    @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
-        padding-right: 88px;
-    }
+    ${({ isMobile }) =>
+        !isMobile
+            ? `
+        padding-right: 88px; 
+    `
+            : null}
 `;
 
 const InputToolbar = ({ placeholder }) => {
@@ -35,8 +39,10 @@ const InputToolbar = ({ placeholder }) => {
         text,
     } = useChat();
 
+    const isMobile = useMedia('sm');
+
     const [layout, setRef] = useLayout();
-    console.log('layout', layout);
+
     useEffect(() => {
         if (layout) {
             setInputToolbarHeight(layout.height);
@@ -56,7 +62,7 @@ const InputToolbar = ({ placeholder }) => {
     );
 
     return (
-        <Root ref={setRef} maxWidth={840}>
+        <Root ref={setRef} maxWidth={840} isMobile={isMobile}>
             <Actions onAttachment={uploadAttachment} />
             <Composer
                 attachments={attachments}

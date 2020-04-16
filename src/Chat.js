@@ -30,7 +30,7 @@ const initialState = {
     typingDisabled: false,
 };
 
-const Chat = ({ channelId, children, user }) => {
+const Chat = ({ channelId, children, onSend, user }) => {
     const [
         { messages, typing, partner, read },
         channel,
@@ -92,7 +92,11 @@ const Chat = ({ channelId, children, user }) => {
                 resetInputToolbar();
             }
 
-            await channel.sendMessage(message);
+            if (onSend) {
+                await onSend();
+            } else {
+                await channel.sendMessage(message);
+            }
 
             if (messageContainerRef.current) {
                 messageContainerRef.current.scrollToTop();
@@ -107,7 +111,7 @@ const Chat = ({ channelId, children, user }) => {
                 }, 100);
             }
         },
-        [channel]
+        [channel, onSend]
     );
 
     const value = useMemo(
@@ -145,8 +149,6 @@ const Chat = ({ channelId, children, user }) => {
         ]
     );
 
-    console.log('Chat Context', value);
-
     return (
         <ChatContext.Provider value={value}>
             <Root>{children}</Root>
@@ -156,6 +158,7 @@ const Chat = ({ channelId, children, user }) => {
 
 Chat.propTypes = {
     channelId: PropTypes.string,
+    onSend: PropTypes.func,
     user: PropTypes.object,
 };
 export default withTheme(Chat);

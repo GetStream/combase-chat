@@ -14,7 +14,7 @@ const Root = styled.div`
         margin-right: 0px;
     }
 
-    & > * + * {
+    & > button + button {
         margin-left: 8px;
 
         @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
