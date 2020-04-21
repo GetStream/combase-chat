@@ -62,17 +62,16 @@ const UserMessage = memo(
         hasPrev,
         isRead,
         partner,
-        showStatus,
     }) => {
         const breakWord = !text.includes(' ') && text.length > 48;
         return (
             <Root>
                 <BubbleWrap>
-                    {attachments.length
+                    {attachments && attachments.length
                         ? renderAttachments(attachments, hasNext, hasPrev)
                         : null}
                     <Bubble
-                        hasAttachment={!!attachments.length}
+                        hasAttachment={attachments && attachments.length}
                         {...{ hasNext, hasPrev, breakWord }}
                     >
                         <Text line={24} color="alt_text">

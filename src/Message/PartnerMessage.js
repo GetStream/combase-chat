@@ -111,7 +111,7 @@ const PartnerMessage = memo(
                     ) : null}
                 </AvatarWrapper>
                 <BubbleWrap>
-                    {attachments.length
+                    {attachments && attachments.length
                         ? renderAttachments(attachments, hasNext, hasPrev)
                         : null}
                     <Bubble {...{ hasNext, hasPrev, showAvatar }}>

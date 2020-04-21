@@ -16,6 +16,7 @@ const Root = styled.div`
     position: relative;
     display: flex;
     align-items: stretch;
+    user-select: none;
 `;
 
 const Wrapper = styled.div`

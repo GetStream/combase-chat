@@ -93,7 +93,7 @@ const Chat = ({ channelId, children, onSend, user }) => {
             }
 
             if (onSend) {
-                await onSend();
+                await onSend(message);
             } else {
                 await channel.sendMessage(message);
             }

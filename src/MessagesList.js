@@ -20,9 +20,8 @@ const Root = styled.div`
     );
 `;
 
-const MessagesList = ({ extraData, ...props }) => {
+const MessagesList = ({ extraData, messages: externalMessages, ...props }) => {
     const {
-        inputToolbarHeight,
         loadMoreMessages,
         messages: data,
         messageContainerRef,
@@ -31,11 +30,16 @@ const MessagesList = ({ extraData, ...props }) => {
         user,
     } = useChat();
 
-    const [layoutProvider, onResize, width] = useLayoutProvider(data, user);
-
-    const extendedState = useMemo(() => ({ data, read, ...extraData }), [
+    const messages = useMemo(() => externalMessages || data, [
         data,
+        externalMessages,
+    ]);
+
+    const [layoutProvider, onResize, width] = useLayoutProvider(messages, user);
+
+    const extendedState = useMemo(() => ({ messages, read, ...extraData }), [
         extraData,
+        messages,
         read,
     ]);
 
@@ -48,10 +52,9 @@ const MessagesList = ({ extraData, ...props }) => {
                 console.warn('`user` is missing from message data.');
                 currentMessage.user = { id: 0 };
             }
-
-            if (data && user) {
-                const previousMessage = data[index + 1];
-                const nextMessage = data[index - 1];
+            if (messages && user) {
+                const previousMessage = messages[index + 1];
+                const nextMessage = messages[index - 1];
                 const isOwn =
                     currentMessage.user && currentMessage.user.id === user._id;
                 const messageProps = {
@@ -71,7 +74,7 @@ const MessagesList = ({ extraData, ...props }) => {
 
             return null;
         },
-        [width, read, partner, user]
+        [width, messages, read, partner, user]
     );
 
     const style = useMemo(
@@ -86,7 +89,7 @@ const MessagesList = ({ extraData, ...props }) => {
         <Root>
             <ListView
                 setMessageContainerRef={messageContainerRef}
-                data={data}
+                data={messages}
                 extendedState={extendedState}
                 forceNonDeterministicRendering
                 layoutProvider={layoutProvider}
@@ -94,7 +97,7 @@ const MessagesList = ({ extraData, ...props }) => {
                 onEndReachedThreshold={240}
                 onResize={onResize}
                 renderRow={renderRow}
-                rowCount={data ? data.length : 0}
+                rowCount={messages ? messages.length : 0}
                 style={style}
             />
         </Root>

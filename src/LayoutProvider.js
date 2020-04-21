@@ -11,7 +11,9 @@ export default (width = 375, data, user) =>
                 return 'SystemMessage';
             }
 
-            const hasAttachments = !!currentMessage.attachments.length;
+            const hasAttachments =
+                !!currentMessage.attachments &&
+                !!currentMessage.attachments.length;
 
             const isOwn = user._id === currentMessage.user.id;
             const hasDate = !isSameSection(currentMessage, previousMessage);

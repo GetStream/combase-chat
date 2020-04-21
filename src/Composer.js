@@ -22,7 +22,7 @@ const Input = styled(AutosizeTextArea)`
 
     &::-webkit-input-placeholder {
         color: ${({ theme }) =>
-        theme.colorUtils.fade(theme.color.alt_text, 0.56)};
+            theme.colorUtils.fade(theme.color.alt_text, 0.56)};
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.sm}px) {
@@ -60,7 +60,7 @@ const Composer = ({
     const onKeyDown = useCallback(
         (e) => {
             if (e.keyCode === 13 && !e.shiftKey) {
-                e.preventDefault()
+                e.preventDefault();
                 if (text) {
                     onSend({ text: text.trim(), attachments }, true);
                 }
